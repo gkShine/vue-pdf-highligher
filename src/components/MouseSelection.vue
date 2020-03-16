@@ -156,7 +156,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "@/assets/vars";
+@import "../assets/vars";
 .mouse-selection {
   position: absolute;
   border: $--highlight-selection-border-width solid $--highlight-color;

@@ -5,10 +5,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = {
   resolve: {
-    extensions: ['.js', '.vue', '.json'],
-    alias: {
-      '@': path.resolve(__dirname, '../src')
-    }
+    extensions: ['.js', '.vue', '.json']
   },
   module: {
     rules: [

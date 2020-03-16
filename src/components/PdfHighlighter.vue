@@ -33,18 +33,18 @@ import {
   PDFLinkService
 } from 'pdfjs-dist/web/pdf_viewer'
 
-import i18n from '@/lib/i18n'
-import getBoundingRect from '@/lib/get-bounding-rect'
-import getClientRects from '@/lib/get-client-rects'
-import getAreaAsPng from '@/lib/get-area-as-png'
+import i18n from '../lib/i18n'
+import getBoundingRect from '../lib/get-bounding-rect'
+import getClientRects from '../lib/get-client-rects'
+import getAreaAsPng from '../lib/get-area-as-png'
 
 import {
   getPageFromRange,
   getPageFromElement,
   findOrCreateContainerLayer
-} from '@/lib/pdfjs-dom'
+} from '../lib/pdfjs-dom'
 
-import { scaledToViewport, viewportToScaled } from '@/lib/coordinates'
+import { scaledToViewport, viewportToScaled } from '../lib/coordinates'
 import MouseSelection from './MouseSelection'
 import TipContainer from './TipContainer'
 import Popup from './Popup'
@@ -108,6 +108,7 @@ export default {
           this.hintOpacity = 0
         }, 2500)
       }
+      if (!val) this.hideTipAndSelection()
     }
   },
   methods: {
@@ -622,7 +623,7 @@ export default {
 }
 </script>
 
-<style lang="scss" src="@/assets/style.scss" />
+<style lang="scss" src="../assets/style.scss" />
 <style scoped lang="scss">
 .hint {
   transition-property: opacity;

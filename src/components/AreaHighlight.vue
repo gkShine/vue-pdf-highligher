@@ -44,7 +44,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "@/assets/vars";
+@import "../assets/vars";
 .area-highlight {
   cursor: pointer;
   background: rgba($--highlight-color, .2);

@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import i18n from '@/lib/i18n'
+import i18n from '../lib/i18n'
 export default {
   name: 'MouseMonitor',
   props: {
@@ -61,7 +61,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "@/assets/vars";
+@import "../assets/vars";
 .highlight__popup {
   background-color: $--highlight-content-background-color;
   color: #ffffff;

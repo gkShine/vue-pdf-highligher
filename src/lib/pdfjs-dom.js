@@ -1,6 +1,6 @@
 // @flow
 import Vue from 'vue'
-import Div from '@/components/Div'
+import Div from '../components/Div'
 const Layer = Vue.extend(Div)
 
 export const getPageFromElement = target => {

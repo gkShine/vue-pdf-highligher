@@ -1,3 +1,3 @@
-import PdfHighlighter from '@/components/PdfHighlighter'
+import PdfHighlighter from './components/PdfHighlighter'
 
 export default PdfHighlighter

@@ -53,7 +53,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "@/assets/vars";
+@import "../assets/vars";
 .highlight {
   position: absolute;
 
