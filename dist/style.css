@@ -2,7 +2,7 @@
 
 .mouse-selection[data-v-3851f563]{position:absolute;border:1px solid #666}.mouse-selection .mouse-selection__inner[data-v-3851f563]{position:absolute;left:0;top:0;bottom:0;right:0;border:3px solid #FFF3BF;background:rgba(255,243,191,0);mix-blend-mode:multiply}
 
-.pdf-highlighter__tip-container[data-v-440b1b5f]{z-index:6;position:absolute}
+.pdf-highlighter__tip-container[data-v-220e5f66]{z-index:6;position:absolute}
 
 .highlight__popup[data-v-6d950b1c]{background-color:#243247;color:#ffffff;opacity:0.9;font-size:14px;padding:10px 10px;border-radius:4px;max-width:300px;max-height:100px}.highlight__popup.with-ops[data-v-6d950b1c]{padding-bottom:0}.highlight__popup .ops[data-v-6d950b1c]{text-align:center}.highlight__popup .ops a[data-v-6d950b1c]{color:rgba(254,141,110,0.9);cursor:pointer;padding:8px 0;width:100%;display:block}.highlight__popup .ops a[data-v-6d950b1c]:hover{color:#FE8D6E}
 
