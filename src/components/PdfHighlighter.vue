@@ -387,6 +387,7 @@ export default {
         return
       }
 
+      debugger
       const rects = getClientRects(range, page.node)
 
       if (rects.length === 0) {
