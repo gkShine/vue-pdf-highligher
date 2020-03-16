@@ -3147,11 +3147,6 @@ gensync@^1.0.0-beta.1:
   resolved "https://registry.npm.taobao.org/gensync/download/gensync-1.0.0-beta.1.tgz#58f4361ff987e5ff6e1e7a210827aa371eaac269"
   integrity sha1-WPQ2H/mH5f9uHnohCCeqNx6qwmk=
 
-geometry-polyfill@^1.0.7:
-  version "1.0.7"
-  resolved "https://registry.npmjs.org/geometry-polyfill/-/geometry-polyfill-1.0.7.tgz#e6511df42d77726ba134d9ed72ab9dad828712f4"
-  integrity sha512-iSdVfJkpJf/MmJqyVM0xZATB+0TrQQol8edmEl5+p+3Z66/MbPSDUB7rwI80WRxQ2RpIpz98z++Rcc55Z8/RnA==
-
 get-caller-file@^1.0.1:
   version "1.0.3"
   resolved "https://registry.npm.taobao.org/get-caller-file/download/get-caller-file-1.0.3.tgz#f978fa4c90d1dfe7ff2d6beda2a515e713bdcf4a"

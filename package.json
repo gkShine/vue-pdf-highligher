@@ -34,7 +34,6 @@
     "eslint": "^6.6.0",
     "eslint-loader": "^3.0.2",
     "eslint-plugin-vue": "^6.0.1",
-    "geometry-polyfill": "^1.0.7",
     "html-webpack-plugin": "^3.2.0",
     "json-templater": "^1.2.0",
     "mini-css-extract-plugin": "^0.8.0",
