@@ -108,7 +108,10 @@ export default {
           this.hintOpacity = 0
         }, 2500)
       }
-      if (!val) this.hideTipAndSelection()
+      if (!val) {
+        this.$refs.selection && this.$refs.selection.reset()
+        this.hideTipAndSelection()
+      }
     }
   },
   methods: {

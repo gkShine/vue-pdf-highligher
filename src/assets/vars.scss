@@ -10,4 +10,16 @@ $--highlight-selection-color: #BFBFFE !default;
 /* 批注内容背景色 */
 $--highlight-content-background-color: #243247 !default;
 /* 批注选框的边框大小 */
-$--highlight-selection-border-width: 4px !default;
+$--highlight-selection-border-width: 3px !default;
+/* 批注选框的外边框样式 */
+$--highlight-selection-outer-border: 1px solid #666666 !default;
+/* 批注选框的内容透明度 */
+$--highlight-selection-background-opacity: 0 !default;
+
+@mixin mix-fullscreen {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+}

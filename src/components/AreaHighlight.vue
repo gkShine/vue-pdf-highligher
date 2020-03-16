@@ -11,7 +11,9 @@
     @dragstop="handleChange"
     @resizestop="handleChange"
     @click.stop.prevent
-  />
+  >
+    <div class="area-highlight__inner"></div>
+  </vue-drag-resize>
 </template>
 
 <script>
@@ -47,13 +49,20 @@ export default {
 @import "../assets/vars";
 .area-highlight {
   cursor: pointer;
-  background: rgba($--highlight-color, .2);
-  border: $--highlight-selection-border-width solid $--highlight-color;
-  mix-blend-mode: multiply;
+  border: $--highlight-selection-outer-border;
+
+  .area-highlight__inner {
+    @include mix-fullscreen;
+    background: rgba($--highlight-color, $--highlight-selection-background-opacity);
+    border: $--highlight-selection-border-width solid $--highlight-color;
+    mix-blend-mode: multiply;
+  }
 
   &.highlight--scrolled-to {
-    border-color: $--highlight-active-color;
-    background: rgba($--highlight-active-color, .2);
+    .area-highlight__inner {
+      border-color: $--highlight-active-color;
+      background: rgba($--highlight-active-color, $--highlight-selection-background-opacity);
+    }
   }
 }
 </style>

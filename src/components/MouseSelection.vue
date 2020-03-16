@@ -4,7 +4,9 @@
         v-if="start && end"
         class="mouse-selection"
         :style="formatStyle(getBoundingRect(start, end))"
-    />
+    >
+      <div class="mouse-selection__inner"></div>
+    </div>
   </div>
 </template>
 
@@ -159,8 +161,13 @@ export default {
 @import "../assets/vars";
 .mouse-selection {
   position: absolute;
-  border: $--highlight-selection-border-width solid $--highlight-color;
-  background: rgba($--highlight-color, .2);
-  mix-blend-mode: multiply;
+  border: $--highlight-selection-outer-border;
+
+  .mouse-selection__inner {
+    @include mix-fullscreen;
+    border: $--highlight-selection-border-width solid $--highlight-color;
+    background: rgba($--highlight-color, $--highlight-selection-background-opacity);
+    mix-blend-mode: multiply;
+  }
 }
 </style>
