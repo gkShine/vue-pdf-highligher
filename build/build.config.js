@@ -9,7 +9,7 @@ module.exports = merge(baseConfig, {
   mode: 'production',
 
   entry: {
-    app: ['core-js', 'geometry-polyfill', './src/index.js']
+    app: ['core-js', './src/index.js']
   },
 
   output: {
