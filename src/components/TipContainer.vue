@@ -15,7 +15,7 @@ export default {
       type: Number,
       default: 0
     },
-    pageBoundingRect: DOMRect
+    pageBoundingRect: Object
   },
   data () {
     return {
