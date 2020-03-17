@@ -75,7 +75,8 @@ export default {
     // 只读模式: 只初始化pdf预览
     readOnly: Boolean,
     lang: Object,
-    cMapUrl: String
+    cMapUrl: String,
+    scrollMargin: Number
   },
   data () {
     return {
@@ -295,7 +296,7 @@ export default {
 
       const pageViewport = this.viewer.getPageView(pageNumber - 1).viewport
 
-      const scrollMargin = 10
+      const scrollMargin = this.scrollMargin || Math.round(window.innerHeight / 4)
 
       this.viewer.scrollPageIntoView({
         pageNumber,
