@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="comment && comment.text" class="highlight__popup" :class="{'with-ops' : editable}">
-      {{ comment.emoji }} {{ comment.text }}
+      <div class="content">{{ comment.emoji }} {{ comment.text }}</div>
       <div v-if="editable" class="ops">
         <a @click="$emit('delete')">{{ i18n.t('delete') }}</a>
       </div>
@@ -70,7 +70,11 @@ export default {
   padding: 10px 10px;
   border-radius: 4px;
   max-width: 300px;
-  max-height: 100px;
+
+  .content {
+    max-height: 100px;
+    overflow: auto;
+  }
 
   &.with-ops {
     padding-bottom: 0;
