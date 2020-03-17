@@ -1,3 +1,7 @@
+import 'core-js'
+import 'raf/polyfill'
+import 'domtokenlist-shim'
+
 if (!('DOMRect' in window)) {
   window.DOMRect = window.ClientRect
 }

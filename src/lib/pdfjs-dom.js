@@ -16,7 +16,7 @@ export const getPageFromElement = target => {
 }
 
 export const getPageFromRange = range => {
-  const parentElement = range.startContainer.parentElement
+  const parentElement = range.startContainer.parentNode
 
   if (!(parentElement instanceof HTMLElement)) {
     return

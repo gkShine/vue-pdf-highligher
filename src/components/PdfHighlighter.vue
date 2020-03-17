@@ -341,6 +341,7 @@ export default {
 
       this.isCollapsed = false
       this.range = range
+      window.range = range
 
       this.debouncedAfterSelection()
     },
@@ -387,7 +388,6 @@ export default {
         return
       }
 
-      debugger
       const rects = getClientRects(range, page.node)
 
       if (rects.length === 0) {

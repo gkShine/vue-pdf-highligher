@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <PdfHighlighter url="/demo.pdf" :highlights="highlights" :enable-area-selection="event => event.altKey"/>
+    <PdfHighlighter url="/demo.pdf" :editable="false" :highlights="highlights" :enable-area-selection="event => event.altKey"/>
   </div>
 </template>
 
