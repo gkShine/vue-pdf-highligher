@@ -6,7 +6,7 @@
     <div ref="containerNode" class="pdf-highlighter" @contextmenu.prevent >
       <div class="pdfViewer" />
       <mouse-selection
-          v-if="typeof enableAreaSelection === 'function'"
+          v-if="!readOnly && typeof enableAreaSelection === 'function'"
           @dragstart="() => toggleTextSelection(true)"
           @dragend="() => toggleTextSelection(false)"
           @change="isVisible => isAreaSelectionInProgress = isVisible"
