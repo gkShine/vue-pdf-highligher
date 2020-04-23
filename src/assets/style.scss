@@ -14,13 +14,9 @@
   z-index: 3;
 }
 
-html body {
-  background: #F5F6F7;
-
-  .textLayer > div:not(.pdf-highlighter__highlight-layer):not(.highlight):not(.highlight-emoji) {
-    opacity: 1;
-    mix-blend-mode: multiply;
-  }
+.textLayer > div:not(.pdf-highlighter__highlight-layer):not(.highlight):not(.highlight-emoji) {
+  opacity: 1;
+  mix-blend-mode: multiply;
 }
 
 .textLayer ::selection {
