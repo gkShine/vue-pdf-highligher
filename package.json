@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
-    "device.js": "^2.3.0",
+    "current-device": "^0.10.1",
     "domtokenlist-shim": "^1.2.0",
     "hammerjs": "^2.0.8",
     "intersection-observer": "^0.9.0",

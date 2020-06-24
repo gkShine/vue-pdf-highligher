@@ -22,7 +22,7 @@
 
 <script>
 import _ from 'lodash'
-import { device } from 'device.js'
+import device from 'current-device'
 import pdfjs from 'pdfjs-dist'
 import Hammer from 'hammerjs'
 import 'pdfjs-dist/web/pdf_viewer.css'
@@ -83,7 +83,7 @@ export default {
       i18n: i18n,
       pdfDocument: null,
       viewer: null,
-      touchEnable: device.touchDevice && device.mobile,
+      touchEnable: device.tablet() || device.mobile(),
       linkService: new PDFLinkService(),
       debouncedAfterSelection: null,
       ghostHighlight: null,
