@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <PdfHighlighter url="/demo.pdf" :highlights="highlights" :enable-area-selection="event => event.altKey"/>
+    <PdfHighlighter url="/demo.pdf" :highlights="highlights" :enable-area-selection="event => event.altKey" @loaded="handleConsole" @change="handleConsole"/>
   </div>
 </template>
 
@@ -15,6 +15,9 @@ export default {
   },
   computed: {},
   methods: {
+    handleConsole (e) {
+      console.log(e)
+    }
   },
   mounted () {
   }

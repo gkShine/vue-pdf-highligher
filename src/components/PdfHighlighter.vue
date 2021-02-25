@@ -612,11 +612,25 @@ export default {
     document.addEventListener('pagesinit', () => {
       this.viewer.currentScaleValue = 'auto'
 
-      this.$emit('loaded', this.viewer)
+      this.$emit('loaded', {
+        viewer: this.viewer,
+        page: {
+          current: this.currentPage,
+          total: this.pdfDocument.numPages
+        }
+      })
     })
 
     document.addEventListener('pagechanging', ({ detail }) => {
       this.currentPage = detail.pageNumber
+
+      this.$emit('change', {
+        viewer: this.viewer,
+        page: {
+          current: detail.pageNumber,
+          total: this.pdfDocument.numPages
+        }
+      })
     })
 
     this.initEvent()
