@@ -23,14 +23,15 @@
 <script>
 import _ from 'lodash'
 import device from 'current-device'
-import pdfjs from 'pdfjs-dist'
+import * as pdfjs from 'pdfjs-dist'
 import Hammer from 'hammerjs'
 import 'pdfjs-dist/web/pdf_viewer.css'
 import 'pdfjs-dist/build/pdf.worker.entry'
 
 import {
   PDFViewer,
-  PDFLinkService
+  PDFLinkService,
+  EventBus
 } from 'pdfjs-dist/web/pdf_viewer'
 
 import i18n from '../lib/i18n'
@@ -95,7 +96,8 @@ export default {
       tip: null,
       hintOpacity: 0,
       visibleSlide: false,
-      currentPage: 1
+      currentPage: 1,
+      eventBus: new EventBus()
     }
   },
   watch: {
@@ -539,7 +541,8 @@ export default {
             enhanceTextSelection: true,
             removePageBorders: true,
             textLayerMode: this.touchEnable ? 0 : 1,
-            linkService: this.linkService
+            linkService: this.linkService,
+            eventBus: this.eventBus
           })
 
           this.viewer.setDocument(pdfDocument)

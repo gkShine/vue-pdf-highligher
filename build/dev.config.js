@@ -2,7 +2,7 @@
 
 const path = require('path')
 const webpack = require('webpack')
-const merge = require('webpack-merge')
+const { merge } = require('webpack-merge')
 const baseConfig = require('./base.config')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
@@ -21,19 +21,13 @@ module.exports = merge(baseConfig, {
     ]
   },
   devServer: {
-    clientLogLevel: 'warning',
     hot: true,
-    contentBase: [path.join(__dirname, '../example'), path.join(__dirname, '../dist')],
+    watchFiles: [path.join(__dirname, '../example'), path.join(__dirname, '../dist')],
     compress: true,
     host: '0.0.0.0',
     port: '8082',
     open: false,
-    overlay: { warnings: false, errors: true },
-    publicPath: '/',
-    quiet: true,
-    watchOptions: {
-      poll: true
-    }
+    static: path.join(__dirname, '../example')
   },
   plugins: [
     new HtmlWebpackPlugin({

@@ -1,6 +1,7 @@
 'use strict'
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const ESLintPlugin = require('eslint-webpack-plugin')
 
 module.exports = {
   resolve: {
@@ -9,10 +10,6 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(js|vue)$/,
-        use: 'eslint-loader',
-        enforce: 'pre'
-      }, {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: {
@@ -30,15 +27,21 @@ module.exports = {
         use: [MiniCssExtractPlugin.loader, 'css-loader', {
           loader: 'postcss-loader',
           options: {
-            plugins: (loader) => [
-              require('autoprefixer')({ remove: false }) // CSS浏览器兼容
-            ]
+            postcssOptions: {
+              plugins: (loader) => [
+                require('autoprefixer')({ remove: false }) // CSS浏览器兼容
+              ]
+            }
           }
         }, 'sass-loader']
       }
     ]
   },
   plugins: [
+    new ESLintPlugin({
+      extensions: ['js', 'vue', 'json'],
+      quiet: true
+    }),
     new VueLoaderPlugin(),
     new MiniCssExtractPlugin({
       filename: 'style.css'
