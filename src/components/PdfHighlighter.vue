@@ -542,7 +542,8 @@ export default {
             removePageBorders: true,
             textLayerMode: this.touchEnable ? 0 : 1,
             linkService: this.linkService,
-            eventBus: this.eventBus
+            eventBus: this.eventBus,
+            renderer: this.readOnly ? 'svg' : 'canvas'
           })
 
           this.viewer.setDocument(pdfDocument)
