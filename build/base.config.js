@@ -20,9 +20,6 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel-loader'
       }, {
-        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
-        loader: 'url-loader'
-      }, {
         test: /\.(sa|sc|c)ss$/,
         use: [MiniCssExtractPlugin.loader, 'css-loader', {
           loader: 'postcss-loader',
