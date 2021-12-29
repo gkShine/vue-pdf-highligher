@@ -23,16 +23,8 @@
 <script>
 import _ from 'lodash'
 import device from 'current-device'
-import * as pdfjs from 'pdfjs-dist'
 import Hammer from 'hammerjs'
-import 'pdfjs-dist/web/pdf_viewer.css'
-import 'pdfjs-dist/build/pdf.worker.entry'
-
-import {
-  PDFViewer,
-  PDFLinkService,
-  EventBus
-} from 'pdfjs-dist/web/pdf_viewer'
+import pdfjs, { PDFLinkService, PDFViewer, EventBus } from '../lib/pdfjs'
 
 import i18n from '../lib/i18n'
 import getBoundingRect from '../lib/get-bounding-rect'
@@ -550,6 +542,7 @@ export default {
           this.linkService.setDocument(pdfDocument)
           this.linkService.setViewer(this.viewer)
         }).catch(e => {
+          console.log(e)
           this.$emit('error', e, password => this.loadPdf(password))
         })
     },

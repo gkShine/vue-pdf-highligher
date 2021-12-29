@@ -1,7 +1,6 @@
 'use strict'
 
 const path = require('path')
-const webpack = require('webpack')
 const { merge } = require('webpack-merge')
 const baseConfig = require('./base.config')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
@@ -35,7 +34,6 @@ module.exports = merge(baseConfig, {
       template: 'example/index.html',
       inject: true,
       collapseWhitespace: true
-    }),
-    new webpack.HotModuleReplacementPlugin()
+    })
   ]
 })
