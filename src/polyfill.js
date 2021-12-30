@@ -1,4 +1,4 @@
-import 'core-js'
+// import 'core-js'
 import 'raf/polyfill'
 import 'domtokenlist-shim'
 

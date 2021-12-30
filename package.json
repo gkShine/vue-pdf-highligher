@@ -70,6 +70,7 @@
       "plugin:vue/essential",
       "@vue/standard"
     ],
+    "ignorePatterns": ["/dist"],
     "rules": {
       "no-useless-call": 0,
       "no-new-func": 0,
