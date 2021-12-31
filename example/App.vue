@@ -9,8 +9,7 @@
 </template>
 
 <script>
-import '../dist/style.css'
-import PdfHighlighter from '../dist/index'
+import PdfHighlighter from '../src/index'
 export default {
   components: { PdfHighlighter },
   data () {
