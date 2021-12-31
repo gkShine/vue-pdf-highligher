@@ -588,12 +588,12 @@ export default {
       if (destory) {
         document.removeEventListener('selectionchange', this.onSelectionChange)
         document.removeEventListener('keydown', this.handleKeyDown)
-        document.removeEventListener('textlayerrendered', this.onTextLayerRendered)
+        this.eventBus.off('textlayerrendered', this.onTextLayerRendered)
       } else {
         this.debouncedAfterSelection = _.debounce(this.afterSelection, 500)
         document.addEventListener('selectionchange', this.onSelectionChange)
         document.addEventListener('keydown', this.handleKeyDown)
-        document.addEventListener('textlayerrendered', this.onTextLayerRendered)
+        this.eventBus.on('textlayerrendered', this.onTextLayerRendered)
       }
     }
   },
@@ -606,7 +606,7 @@ export default {
     // debug
     window.PdfViewer = this
 
-    document.addEventListener('pagesinit', () => {
+    this.eventBus.on('pagesinit', () => {
       this.viewer.currentScaleValue = 'auto'
 
       this.$emit('loaded', {
@@ -618,7 +618,7 @@ export default {
       })
     })
 
-    document.addEventListener('pagechanging', ({ detail }) => {
+    this.eventBus.on('pagechanging', (detail) => {
       this.currentPage = detail.pageNumber
 
       this.$emit('change', {
