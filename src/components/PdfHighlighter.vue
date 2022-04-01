@@ -65,8 +65,13 @@ export default {
       type: Boolean,
       default: true
     },
-    // 只读模式: 只初始化pdf预览
+    // 只读模式: 只初始化pdf预览，
     readOnly: Boolean,
+    // 渲染方式: canvas 或 svg。已知svg的bug: demo3 首页不显示; demo4 ios微信加载时下滑会刷新
+    renderer: {
+      type: String,
+      default: 'canvas'
+    },
     lang: Object,
     cMapUrl: String,
     scrollMargin: Number
@@ -535,7 +540,7 @@ export default {
             textLayerMode: this.touchEnable ? 0 : 1,
             linkService: this.linkService,
             eventBus: this.eventBus,
-            renderer: this.readOnly ? 'svg' : 'canvas'
+            renderer: this.renderer
           })
 
           this.viewer.setDocument(pdfDocument)
