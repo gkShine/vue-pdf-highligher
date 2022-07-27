@@ -4968,9 +4968,9 @@ pbkdf2@^3.0.3:
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
 
-"pdfjs-dist@git+ssh://git@github.com:gkShine/pdfjs-dist.git#dev":
+"pdfjs-dist@git+https://github.com/gkShine/pdfjs-dist.git#dev":
   version "2.3.200"
-  resolved "git+ssh://git@github.com:gkShine/pdfjs-dist.git#70401ff95961d7adbe79ad9f4e39d7b54651710d"
+  resolved "git+https://github.com/gkShine/pdfjs-dist.git#70401ff95961d7adbe79ad9f4e39d7b54651710d"
   dependencies:
     node-ensure "^0.0.0"
     worker-loader "^2.0.0"
