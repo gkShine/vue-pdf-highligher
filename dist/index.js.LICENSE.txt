@@ -1,3 +1,9 @@
+/*!
+* DOMMatrix v1.0.3 (https://thednp.github.io/dommatrix/)
+* Copyright 2022 © thednp
+* Licensed under MIT (https://github.com/thednp/DOMMatrix/blob/master/LICENSE)
+*/
+
 /*! Hammer.JS - v2.0.7 - 2016-04-22
  * http://hammerjs.github.io/
  *
@@ -15,7 +21,7 @@
 
 /**
  * @licstart The following is the entire license notice for the
- * Javascript code in this page
+ * JavaScript code in this page
  *
  * Copyright 2022 Mozilla Foundation
  *
@@ -32,5 +38,5 @@
  * limitations under the License.
  *
  * @licend The above is the entire license notice for the
- * Javascript code in this page
+ * JavaScript code in this page
  */

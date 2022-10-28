@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: 'Div',
+  name: 'Block',
   data () {
     return {
       className: ''
