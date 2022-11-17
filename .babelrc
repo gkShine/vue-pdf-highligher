@@ -1,9 +1,5 @@
 {
-  "presets": [["@babel/preset-env", {
-    "targets": {
-      "browsers": ["last 3 versions", "ie >= 9"]
-    }
-  }]],
+  "presets": [["@babel/preset-env"]],
   "plugins": [
     "@babel/plugin-transform-runtime",
     "@babel/plugin-transform-modules-commonjs",
