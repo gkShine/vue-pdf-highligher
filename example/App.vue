@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <PdfHighlighter ref="pdf" url="/demo5.pdf" :highlights="highlights" read-only renderer="canvas" c-map-url="/cmaps/" :enable-area-selection="event => event.altKey" @loaded="handleConsole" @change="handleConsole"/>
+    <PdfHighlighter ref="pdf" url="/demo3.pdf" :highlights="highlights" renderer="canvas" c-map-url="/cmaps/" :enable-area-selection="event => event.altKey" @loaded="handleConsole" @change="handleConsole"/>
     <div style="position: absolute; z-index: 100">
       <button @click="$refs.pdf.handleCommand('zoomIn')">放大</button>
       <button @click="$refs.pdf.handleCommand('zoomOut')">缩小</button>
@@ -20,7 +20,7 @@ export default {
   computed: {},
   methods: {
     handleConsole (e) {
-      console.log(e)
+      // console.log(e)
     }
   },
   mounted () {

@@ -211,7 +211,7 @@ export default {
       }
 
       return findOrCreateContainerLayer(
-        textLayer.textLayerDiv,
+        textLayer.div,
         'pdf-highlighter__highlight-layer'
       )
     },
