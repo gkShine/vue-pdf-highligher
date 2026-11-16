@@ -1,12 +1,13 @@
+import type { PdfRect } from '@embedpdf/engine';
 import type { ScaledRect, ViewportRect } from '../types';
 /**
- * 坐标转换所需的 viewport 最小结构
+ * 坐标转换所需的页面尺寸（PDF point，未旋转的 crop 尺寸）。
+ * usePdfCoordinates 数据还需要页面的 PDF 原生 cropBox。
  */
 export interface ViewportLike {
     width: number;
     height: number;
-    convertToViewportRectangle(rect: number[]): number[];
-    convertToPdfPoint(x: number, y: number): number[];
+    pdfCropBox?: PdfRect;
 }
 export declare const viewportToScaled: (rect: ViewportRect, { width, height }: {
     width: number;

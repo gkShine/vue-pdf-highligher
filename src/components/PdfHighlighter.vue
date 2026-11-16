@@ -1,29 +1,52 @@
 <template>
-  <div ref="rootRef" :class="{ 'sidebar-open': visibleSlide }" @mousedown="onMouseDown">
-    <transition name="slide">
-      <Preview
-        v-if="pdfDocument"
-        v-show="visibleSlide"
-        :pdf-document="pdfDocument"
-        :is-preview-enabled="visibleSlide"
-        :current-page="currentPage"
-        :page-count="pdfDocument.numPages"
-        @page-focus="handlePageFocus"
+  <div ref="rootRef" class="pdf-highlighter-root" :class="{ 'sidebar-open': visibleSlide }" @mousedown="onMouseDown">
+    <Viewer
+      :engine="engine"
+      :plugins="plugins"
+      :initial-documents="initialDocuments"
+      :fetch="hostFetch"
+      :page="{ background: '#ffffff', shadow: 'none' }"
+    >
+      <DocumentStatus
+        :url="url"
+        :password="password"
+        @error="onDocumentError"
       />
-    </transition>
 
-    <div ref="containerRef" class="pdf-highlighter" @contextmenu.prevent>
-      <div class="pdfViewer" />
-      <MouseSelection
-        v-if="!readOnly && enableAreaSelection"
-        ref="selectionRef"
-        :should-start="shouldStart"
-        @dragstart="toggleTextSelection(true)"
-        @dragend="toggleTextSelection(false)"
-        @change="onAreaSelectionVisibilityChange"
-        @selection="handleSelection"
-      />
-    </div>
+      <DocumentGate>
+        <template #fallback>
+          <div class="pdf-highlighter__status">Loading…</div>
+        </template>
+        <template #locked="{ document }">
+          <div class="pdf-highlighter__status">
+            {{ document.passwordProvided || passwordAttempted || password ? '密码错误，请重试' : '该文档需要密码才能打开' }}
+          </div>
+        </template>
+        <template #error="{ document }">
+          <div class="pdf-highlighter__status">
+            文档加载失败{{ document.error?.message ? `：${document.error.message}` : '' }}
+          </div>
+        </template>
+
+        <PdfHighlighterCore
+          ref="coreRef"
+          :highlights="highlights"
+          :is-active="isActive"
+          :editable="editable"
+          :read-only="readOnly"
+          :enable-area-selection="enableAreaSelection"
+          :scroll-margin="scrollMargin"
+          :visible-slide="visibleSlide"
+          @loaded="payload => emit('loaded', payload)"
+          @change="payload => emit('change', payload)"
+          @scroll="emit('scroll')"
+          @add-highlight="payload => emit('add-highlight', payload)"
+          @update-highlight="(id, position, content) => emit('update-highlight', id, position, content)"
+          @remove-highlight="highlight => emit('remove-highlight', highlight)"
+          @select-highlight="highlight => emit('select-highlight', highlight)"
+        />
+      </DocumentGate>
+    </Viewer>
 
     <div class="hint" :style="{ opacity: hintOpacity }">
       <div class="hint-container">{{ i18n.t('hint-message') }}</div>
@@ -32,44 +55,24 @@
 </template>
 
 <script setup lang="ts">
-import { h, onBeforeUnmount, onMounted, ref, render, shallowRef, watch } from 'vue'
-import type { VNode } from 'vue'
-import { debounce } from 'lodash'
-import device from 'current-device'
-import Hammer from 'hammerjs'
-import type { PDFDocumentProxy } from 'pdfjs-dist'
+import { computed, onBeforeUnmount, ref, watch } from 'vue'
+import { DocumentGate, Viewer } from '@embedpdf/vue/runtime'
+import type { HostFetch, InitialDocument } from '@embedpdf/vue/runtime'
 
-import pdfjs, { PDFLinkService, PDFViewer, EventBus } from '../lib/pdfjs'
+import { engine, plugins } from '../lib/embedpdf'
 import i18n from '../lib/i18n'
-import getBoundingRect from '../lib/get-bounding-rect'
-import getClientRects from '../lib/get-client-rects'
-import getAreaAsPng from '../lib/get-area-as-png'
-import { renderInLayer } from '../lib/layer'
-import { getPageFromElement, getPageFromRange } from '../lib/pdfjs-dom'
-import { scaledToViewport, viewportToScaled } from '../lib/coordinates'
-import type { ViewportLike } from '../lib/coordinates'
+import type { PdfViewerHandle } from '../lib/viewer-handle'
 
-import MouseSelection from './MouseSelection.vue'
-import TipContainer from './TipContainer.vue'
-import Popup from './Popup.vue'
-import Tip from './Tip.vue'
-import Preview from './Preview.vue'
+import DocumentStatus from './DocumentStatus.vue'
+import PdfHighlighterCore from './PdfHighlighterCore.vue'
 
 import type {
   Highlight,
   HighlightComment,
   HighlightContent,
-  ScaledRect,
   ScaledPosition,
-  TipPosition,
-  ViewportHighlight,
-  ViewportPosition,
-  ViewportRect
+  ScaledRect
 } from '../types'
-
-const EMPTY_ID = 'empty-id'
-const HIGHLIGHT_LAYER_CLASS = 'pdf-highlighter__highlight-layer'
-const TIP_LAYER_CLASS = 'pdf-highlighter__tip-layer'
 
 const props = withDefaults(
   defineProps<{
@@ -85,11 +88,12 @@ const props = withDefaults(
     /** 只读模式: 只初始化 pdf 预览，不提供批注交互 */
     readOnly?: boolean
     /**
-     * 渲染方式。pdf.js v6 已移除 SVG 渲染器，仅支持 canvas，
+     * 渲染方式。EmbedPDF 统一使用 PDFium 光栅渲染，
      * 保留该属性仅为向后兼容。
      */
     renderer?: 'canvas' | 'svg'
     lang?: Record<string, string>
+    /** EmbedPDF (PDFium) 内置 CJK 支持，保留该属性仅为向后兼容 */
     cMapUrl?: string
     scrollMargin?: number
     withCredentials?: boolean
@@ -105,8 +109,8 @@ const props = withDefaults(
 )
 
 const emit = defineEmits<{
-  loaded: [payload: { viewer: PDFViewer; page: { current: number; total: number } }]
-  change: [payload: { viewer: PDFViewer; page: { current: number; total: number } }]
+  loaded: [payload: { viewer: PdfViewerHandle; page: { current: number; total: number } }]
+  change: [payload: { viewer: PdfViewerHandle; page: { current: number; total: number } }]
   scroll: []
   'add-highlight': [payload: { content: HighlightContent; position: ScaledPosition; comment: HighlightComment }]
   'update-highlight': [
@@ -120,315 +124,72 @@ const emit = defineEmits<{
 }>()
 
 const rootRef = ref<HTMLElement | null>(null)
-const containerRef = ref<HTMLElement | null>(null)
-const selectionRef = ref<InstanceType<typeof MouseSelection> | null>(null)
+const coreRef = ref<InstanceType<typeof PdfHighlighterCore> | null>(null)
 
-const pdfDocument = shallowRef<PDFDocumentProxy | null>(null)
 const hintOpacity = ref(0)
 const visibleSlide = ref(false)
-const currentPage = ref(1)
 
-let viewer: PDFViewer | null = null
-const linkService = new PDFLinkService()
-const eventBus = new EventBus()
-const touchEnable = device.tablet() || device.mobile()
-
-const ghostHighlight = shallowRef<Highlight | null>(null)
-const isCollapsed = ref(true)
-const isAreaSelectionInProgress = ref(false)
-
-let range: Range | null = null
-let scrolledToHighlightId: string | number = EMPTY_ID
 let isPresentationMode = false
-let tip: { highlight: ViewportHighlight; callback: (highlight: ViewportHighlight) => VNode } | null = null
-let hammer: HammerManager | null = null
 let hintTimer: ReturnType<typeof setTimeout> | null = null
-
-const debouncedAfterSelection = debounce(() => afterSelection(), 500)
 
 i18n.set(props.lang)
 
-const viewerElement = (): HTMLElement | null => {
-  const el = viewer?.viewer
-  return el instanceof HTMLElement ? el : null
-}
+const initialDocuments = computed<InitialDocument[]>(() =>
+  props.url
+    ? [{ source: { kind: 'url', url: props.url }, password: props.password }]
+    : []
+)
 
-const handlePageFocus = (pageNumber: number) => {
-  if (!viewer) return
+const hostFetch: HostFetch = (url, init) =>
+  fetch(url, {
+    signal: init.signal,
+    credentials: props.withCredentials ? 'include' : 'same-origin'
+  })
 
-  viewer.container.removeEventListener('scroll', onScroll)
-  currentPage.value = pageNumber
-  viewer.scrollPageIntoView({ pageNumber })
-  setTimeout(() => {
-    viewer?.container.addEventListener('scroll', onScroll)
-  }, 100)
+// localEngine 不上报 passwordProvided，自行记录是否尝试过密码以区分提示文案
+const passwordAttempted = ref(false)
+
+watch(
+  () => props.url,
+  () => {
+    passwordAttempted.value = false
+  }
+)
+
+const onDocumentError = (error: unknown, retry: (password?: string) => void) => {
+  if ((error as Error)?.name === 'PasswordException') {
+    emit('error', error, (pwd?: string) => {
+      if (pwd !== undefined || props.password) passwordAttempted.value = true
+      retry(pwd)
+    })
+  } else {
+    emit('error', error, retry)
+  }
 }
 
 const handleCommand = (command: string, factor = 1.1) => {
-  if (!viewer) return
-
-  let newScale: number | string
-
   switch (command) {
     case 'toggleSlide':
       visibleSlide.value = !visibleSlide.value
       break
-    case 'zoomOut':
-      newScale = viewer.currentScale
-      newScale = (Number(newScale) / factor).toFixed(2)
-      newScale = Math.floor(Number(newScale) * 10) / 10
-      newScale = Math.max(0.1, Number(newScale))
-      viewer.currentScaleValue = String(newScale)
-      break
     case 'zoomIn':
-      newScale = viewer.currentScale
-      newScale = (Number(newScale) * factor).toFixed(2)
-      newScale = Math.ceil(Number(newScale) * 10) / 10
-      newScale = Math.min(10.0, Number(newScale))
-      viewer.currentScaleValue = String(newScale)
+    case 'zoomOut':
+      coreRef.value?.handleCommand(command, factor)
       break
     case 'presentationMode':
       if (isPresentationMode) {
-        document.exitFullscreen()
+        void document.exitFullscreen()
         isPresentationMode = false
       } else if (rootRef.value && 'requestFullscreen' in rootRef.value) {
-        rootRef.value.requestFullscreen()
+        void rootRef.value.requestFullscreen()
         isPresentationMode = true
       }
       break
   }
 }
 
-const shouldStart = (event: MouseEvent): boolean => {
-  return (
-    props.isActive &&
-    !!props.enableAreaSelection?.(event) &&
-    event.target instanceof HTMLElement &&
-    Boolean(event.target.closest('.page'))
-  )
-}
-
-const scaledPositionToViewport = (position: ScaledPosition): ViewportPosition => {
-  const viewport = viewer!.getPageView(position.pageNumber - 1).viewport as ViewportLike
-
-  return {
-    boundingRect: scaledToViewport(position.boundingRect, viewport, position.usePdfCoordinates),
-    rects: (position.rects || []).map(rect =>
-      scaledToViewport(rect, viewport, position.usePdfCoordinates)
-    ),
-    pageNumber: position.pageNumber
-  }
-}
-
-const viewportPositionToScaled = (position: ViewportPosition): ScaledPosition => {
-  const viewport = viewer!.getPageView(position.pageNumber - 1).viewport as ViewportLike
-
-  return {
-    boundingRect: viewportToScaled(position.boundingRect, viewport),
-    rects: (position.rects || []).map(rect => viewportToScaled(rect, viewport)),
-    pageNumber: position.pageNumber
-  }
-}
-
-const screenshot = (position: ViewportRect, pageNumber: number): string => {
-  const canvas = viewer!.getPageView(pageNumber - 1).canvas as HTMLCanvasElement | null
-  return getAreaAsPng(canvas, position)
-}
-
-const findOrCreateHighlightLayer = (pageNumber: number): HTMLElement | null => {
-  const textLayer = viewer?.getPageView(pageNumber - 1)?.textLayer
-  return textLayer?.div ?? null
-}
-
-const groupHighlightsByPage = (highlights: Highlight[]): Record<string, Highlight[]> => {
-  return [...highlights, ghostHighlight.value]
-    .filter((h): h is Highlight => Boolean(h))
-    .reduce<Record<string, Highlight[]>>((result, highlight) => {
-      const { pageNumber } = highlight.position
-      const key = String(pageNumber)
-      result[key] = result[key] || []
-      result[key].push(highlight)
-      return result
-    }, {})
-}
-
-const showTip = (highlight: ViewportHighlight, content: VNode) => {
-  const highlightInProgress = !isCollapsed.value || ghostHighlight.value
-
-  if (highlightInProgress || isAreaSelectionInProgress.value) {
-    return
-  }
-
-  renderTipAtPosition(highlight.position, content)
-}
-
-const handleSelection = (
-  startTarget: HTMLElement,
-  boundingRect: ViewportRect,
-  resetSelection: () => void
-) => {
-  const page = getPageFromElement(startTarget)
-
-  if (!page) {
-    return
-  }
-
-  const pageBoundingRect: ViewportRect = {
-    ...boundingRect,
-    top: boundingRect.top - page.node.offsetTop,
-    left: boundingRect.left - page.node.offsetLeft
-  }
-
-  const viewportPosition: ViewportPosition = {
-    boundingRect: pageBoundingRect,
-    rects: [],
-    pageNumber: page.number
-  }
-
-  const scaledPosition = viewportPositionToScaled(viewportPosition)
-  const image = screenshot(pageBoundingRect, page.number)
-
-  renderTipAtPosition(
-    viewportPosition,
-    onSelectionFinished(
-      scaledPosition,
-      { image },
-      () => hideTipAndSelection(),
-      () => {
-        ghostHighlight.value = {
-          isGhost: true,
-          position: scaledPosition,
-          content: { image }
-        }
-        resetSelection()
-        renderHighlights()
-      }
-    )
-  )
-}
-
-const hideTipAndSelection = () => {
-  const viewerEl = viewerElement()
-  if (viewerEl) {
-    renderInLayer(viewerEl, TIP_LAYER_CLASS, null)
-  }
-
-  ghostHighlight.value = null
-  tip = null
-  renderHighlights()
-}
-
-const onTextLayerRendered = () => {
-  renderHighlights()
-}
-
 const scrollTo = (highlight: Highlight) => {
-  const { pageNumber, boundingRect, usePdfCoordinates } = highlight.position
-
-  const pageViewport = viewer!.getPageView(pageNumber - 1).viewport as ViewportLike
-
-  const scrollMargin =
-    props.scrollMargin || Math.round(window.innerHeight / 4)
-
-  viewer!.scrollPageIntoView({
-    pageNumber,
-    destArray: [
-      null,
-      { name: 'XYZ' },
-      ...pageViewport.convertToPdfPoint(
-        0,
-        scaledToViewport(boundingRect, pageViewport, usePdfCoordinates).top -
-          scrollMargin
-      ),
-      0
-    ]
-  })
-
-  selectHighlight(highlight)
-}
-
-const selectHighlight = (highlight: Highlight) => {
-  if (!viewer) return
-
-  viewer.container.removeEventListener('scroll', onScroll)
-  scrolledToHighlightId = highlight.id ?? EMPTY_ID
-  renderHighlights()
-
-  // 等待滚动结束
-  setTimeout(() => {
-    viewer?.container.addEventListener('scroll', onScroll)
-  }, 100)
-}
-
-const afterSelection = () => {
-  if (!props.isActive) {
-    return
-  }
-
-  if (!range || isCollapsed.value) {
-    return
-  }
-
-  const page = getPageFromRange(range)
-
-  if (!page) {
-    return
-  }
-
-  const rects = getClientRects(range, page.node)
-
-  if (rects.length === 0) {
-    return
-  }
-
-  const boundingRect = getBoundingRect(rects)
-
-  const viewportPosition: ViewportPosition = { boundingRect, rects, pageNumber: page.number }
-
-  const content: HighlightContent = {
-    text: range.toString()
-  }
-  const scaledPosition = viewportPositionToScaled(viewportPosition)
-
-  renderTipAtPosition(
-    viewportPosition,
-    onSelectionFinished(
-      scaledPosition,
-      content,
-      () => hideTipAndSelection(),
-      () => {
-        ghostHighlight.value = { isGhost: true, position: scaledPosition }
-        renderHighlights()
-      }
-    )
-  )
-}
-
-const onSelectionChange = () => {
-  const selection = window.getSelection()
-
-  if (!selection || selection.isCollapsed) {
-    isCollapsed.value = true
-    return
-  }
-
-  const currentRange = selection.getRangeAt(0)
-
-  if (!currentRange) {
-    return
-  }
-
-  isCollapsed.value = false
-  range = currentRange
-
-  debouncedAfterSelection()
-}
-
-const onScroll = () => {
-  emit('scroll')
-  scrolledToHighlightId = EMPTY_ID
-  renderHighlights()
-  viewer?.container.removeEventListener('scroll', onScroll)
+  coreRef.value?.scrollTo(highlight)
 }
 
 const onMouseDown = (event: MouseEvent) => {
@@ -440,272 +201,8 @@ const onMouseDown = (event: MouseEvent) => {
     return
   }
 
-  hideTipAndSelection()
+  coreRef.value?.hideTipAndSelection()
 }
-
-const handleKeyDown = (event: KeyboardEvent) => {
-  if (event.code === 'Escape') {
-    hideTipAndSelection()
-  }
-}
-
-const toggleTextSelection = (flag: boolean) => {
-  viewerElement()?.classList.toggle('pdf-highlighter--disable-selection', flag)
-}
-
-const onSelectionFinished = (
-  position: ScaledPosition,
-  content: HighlightContent,
-  hideTip: () => void,
-  transformSelection: () => void
-): VNode => {
-  return h(Tip, {
-    onOpen: transformSelection,
-    onCancel: () => hideTip(),
-    onConfirm: (comment: HighlightComment) => {
-      emit('add-highlight', { content, position, comment })
-      hideTip()
-    }
-  })
-}
-
-const renderHighlights = () => {
-  if (!pdfDocument.value || !viewer) return
-
-  const highlightsByPage = groupHighlightsByPage(props.highlights)
-
-  for (let pageNumber = 1; pageNumber <= pdfDocument.value.numPages; pageNumber++) {
-    const textLayerDiv = findOrCreateHighlightLayer(pageNumber)
-
-    if (!textLayerDiv) {
-      continue
-    }
-
-    const pageView = viewer.getPageView(pageNumber - 1)
-    const pageViewport = pageView.viewport as ViewportLike
-
-    const children = (highlightsByPage[String(pageNumber)] || []).map(
-      (highlight, index) => {
-        const { className, position, ...rest } = highlight
-
-        const viewportHighlight: ViewportHighlight = {
-          ...rest,
-          className,
-          position: scaledPositionToViewport(position)
-        }
-
-        if (tip && tip.highlight.id === String(highlight.id)) {
-          showTip(tip.highlight, tip.callback(viewportHighlight))
-        }
-
-        const isScrolledTo = Boolean(scrolledToHighlightId === highlight.id)
-
-        return h(Popup, {
-          key: index,
-          highlight: viewportHighlight,
-          isScrolledTo,
-          editable: props.editable,
-          onMouseOut: hideTipAndSelection,
-          onMouseOver: (popupContent: VNode) => {
-            const callback = () => popupContent
-            tip = { highlight: viewportHighlight, callback }
-            showTip(viewportHighlight, popupContent)
-          },
-          onChange: (boundingRect: ViewportRect) => {
-            emit(
-              'update-highlight',
-              viewportHighlight.id!,
-              { boundingRect: viewportToScaled(boundingRect, pageViewport) },
-              { image: screenshot(boundingRect, pageNumber) }
-            )
-          },
-          onDelete: () => emit('remove-highlight', highlight),
-          onSelect: () => {
-            selectHighlight(highlight)
-            emit('select-highlight', highlight)
-          }
-        })
-      }
-    )
-
-    renderInLayer(textLayerDiv, HIGHLIGHT_LAYER_CLASS, h('div', null, children))
-  }
-}
-
-const renderTipAtPosition = (position: ViewportPosition, inner: VNode) => {
-  if (!viewer) return
-
-  const pageNode = viewer.getPageView(position.pageNumber - 1).div as HTMLElement | undefined
-  if (!pageNode) return
-
-  const pageBoundingRect = pageNode.getBoundingClientRect()
-  const tipPosition: TipPosition = {
-    left: pageNode.offsetLeft + position.boundingRect.left + position.boundingRect.width / 2,
-    top: position.boundingRect.top + pageNode.offsetTop,
-    bottom: position.boundingRect.top + pageNode.offsetTop + position.boundingRect.height
-  }
-
-  const viewerEl = viewerElement()
-  if (!viewerEl) return
-
-  renderInLayer(
-    viewerEl,
-    TIP_LAYER_CLASS,
-    h(
-      TipContainer,
-      {
-        scrollTop: viewer.container.scrollTop,
-        pageBoundingRect,
-        position: tipPosition
-      },
-      { default: () => inner }
-    )
-  )
-}
-
-const loadPdf = async (password?: string) => {
-  let pdfDoc: PDFDocumentProxy
-
-  const params = {
-    password: password || props.password,
-    cMapUrl: props.cMapUrl,
-    cMapPacked: Boolean(props.cMapUrl),
-    withCredentials: props.withCredentials
-  }
-
-  try {
-    pdfDoc = await pdfjs.getDocument({ url: props.url, ...params }).promise
-  } catch (e) {
-    if (String(e).includes('body.getReader')) {
-      const pdfData = await fetch(new URL(props.url ?? '', window.location.href).href)
-      const arrayBufferPdf = await pdfData.arrayBuffer()
-      pdfDoc = await pdfjs.getDocument({ data: arrayBufferPdf, ...params }).promise
-    } else {
-      console.error(e)
-      emit('error', e, (retryPassword?: string) => loadPdf(retryPassword))
-      return
-    }
-  }
-
-  try {
-    pdfDocument.value = pdfDoc
-
-    if (!containerRef.value) {
-      return
-    }
-
-    viewer = new PDFViewer({
-      container: containerRef.value,
-      removePageBorders: true,
-      textLayerMode: touchEnable ? 0 : 1,
-      linkService,
-      eventBus
-    })
-
-    viewer.setDocument(pdfDoc)
-    linkService.setDocument(pdfDoc)
-    linkService.setViewer(viewer)
-  } catch (e) {
-    console.error(e)
-    emit('error', e, (retryPassword?: string) => loadPdf(retryPassword))
-  }
-}
-
-const onTouchStart = (event: TouchEvent) => {
-  if (event.touches.length > 1) {
-    event.preventDefault()
-  }
-}
-
-const lastTouchEnd = { time: 0 }
-const onTouchEnd = (event: TouchEvent) => {
-  const now = Date.now()
-  if (now - lastTouchEnd.time <= 300) {
-    event.preventDefault()
-  }
-  lastTouchEnd.time = now
-}
-
-const onGestureStart = (event: Event) => {
-  event.preventDefault()
-}
-
-const initTouchDevice = () => {
-  if (!touchEnable) {
-    return
-  }
-
-  // 阻止双击放大
-  document.addEventListener('touchstart', onTouchStart)
-  document.addEventListener('touchend', onTouchEnd, false)
-  // 阻止双指放大
-  document.addEventListener('gesturestart', onGestureStart)
-
-  hammer = new Hammer(document as unknown as HTMLElement, { enable: true })
-  hammer.get('pinch').set({ enable: true })
-
-  let begin = 1
-  hammer.on('pinchstart', ({ scale }) => {
-    begin = scale
-  })
-  hammer.on('pinchout', ({ scale }) => {
-    if (!viewer) return
-    const newScale = viewer.currentScale + (scale - begin)
-    viewer.currentScaleValue = String(Math.min(10.0, newScale))
-    begin = scale
-  })
-  hammer.on('pinchin', ({ scale }) => {
-    if (!viewer) return
-    const newScale = viewer.currentScale - (begin - scale)
-    viewer.currentScaleValue = String(Math.max(0.1, newScale))
-    begin = scale
-  })
-}
-
-const initEvent = (destroy = false) => {
-  if (props.readOnly) {
-    return
-  }
-
-  if (destroy) {
-    document.removeEventListener('selectionchange', onSelectionChange)
-    document.removeEventListener('keydown', handleKeyDown)
-    eventBus.off('textlayerrendered', onTextLayerRendered)
-  } else {
-    document.addEventListener('selectionchange', onSelectionChange)
-    document.addEventListener('keydown', handleKeyDown)
-    eventBus.on('textlayerrendered', onTextLayerRendered)
-  }
-}
-
-const unmountLayers = () => {
-  const viewerEl = viewerElement()
-  const tipLayer = viewerEl?.querySelector(`.${TIP_LAYER_CLASS}`)
-  if (viewerEl && tipLayer) {
-    render(null, tipLayer as HTMLElement)
-  }
-
-  if (!pdfDocument.value || !viewer) return
-
-  for (let pageNumber = 1; pageNumber <= pdfDocument.value.numPages; pageNumber++) {
-    const textLayerDiv = findOrCreateHighlightLayer(pageNumber)
-    const layer = textLayerDiv?.querySelector(`.${HIGHLIGHT_LAYER_CLASS}`)
-    if (layer) {
-      render(null, layer as HTMLElement)
-    }
-  }
-}
-
-const onAreaSelectionVisibilityChange = (isVisible: boolean) => {
-  isAreaSelectionInProgress.value = isVisible
-}
-
-watch(
-  () => props.highlights,
-  () => {
-    renderHighlights()
-  }
-)
 
 watch(
   () => props.isActive,
@@ -717,61 +214,14 @@ watch(
         hintOpacity.value = 0
       }, 2500)
     }
-    if (!val) {
-      selectionRef.value?.reset()
-      hideTipAndSelection()
-    }
   }
 )
 
-onMounted(() => {
-  void loadPdf()
-
-  eventBus.on('pagesinit', () => {
-    if (!viewer) return
-    viewer.currentScaleValue = 'auto'
-
-    emit('loaded', {
-      viewer,
-      page: {
-        current: currentPage.value,
-        total: pdfDocument.value?.numPages ?? 0
-      }
-    })
-  })
-
-  eventBus.on('pagechanging', (detail: { pageNumber: number }) => {
-    currentPage.value = detail.pageNumber
-
-    emit('change', {
-      viewer: viewer!,
-      page: {
-        current: detail.pageNumber,
-        total: pdfDocument.value?.numPages ?? 0
-      }
-    })
-  })
-
-  initEvent()
-  initTouchDevice()
-})
-
 onBeforeUnmount(() => {
-  initEvent(true)
-
-  document.removeEventListener('touchstart', onTouchStart)
-  document.removeEventListener('touchend', onTouchEnd)
-  document.removeEventListener('gesturestart', onGestureStart)
-  hammer?.destroy()
-  hammer = null
-
   if (hintTimer) {
     clearTimeout(hintTimer)
     hintTimer = null
   }
-
-  debouncedAfterSelection.cancel()
-  unmountLayers()
 })
 
 defineExpose({
@@ -793,6 +243,7 @@ defineExpose({
   width: 100%;
   text-align: center;
   opacity: 0;
+  z-index: 7;
 
   .hint-container {
     width: 200px;

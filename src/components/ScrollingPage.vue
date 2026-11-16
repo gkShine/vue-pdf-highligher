@@ -6,11 +6,11 @@
 
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
-import type { PDFPageProxy } from 'pdfjs-dist'
+import type { PageInfo } from '@embedpdf/vue/runtime'
 
 const props = defineProps<{
-  /** pdf.getPage 返回的 PDFPageProxy */
-  page: PDFPageProxy
+  /** EmbedPDF 页面布局信息（usePageList 返回项） */
+  page: PageInfo
   focusedPage?: number
   scrollTop?: number
   clientHeight?: number
@@ -28,7 +28,7 @@ const elementHeight = ref(0)
 
 let resizeObserver: ResizeObserver | null = null
 
-const isPageFocused = computed(() => props.page.pageNumber === props.focusedPage)
+const isPageFocused = computed(() => props.page.index + 1 === props.focusedPage)
 
 const bottom = computed(() => elementTop.value + elementHeight.value)
 

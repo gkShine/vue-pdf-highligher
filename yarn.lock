@@ -47,6 +47,477 @@
     "@babel/helper-string-parser" "^7.29.7"
     "@babel/helper-validator-identifier" "^7.29.7"
 
+"@embedpdf/core-acrojs@3.2.0":
+  version "3.2.0"
+  resolved "https://registry.npmjs.org/@embedpdf/core-acrojs/-/core-acrojs-3.2.0.tgz#afe788699dedfb38d43e9abe322be5d035811181"
+  integrity sha512-Hk7c48/HoS+W+sUPgjuWPOrlxnH0cvyv413OLuY5BR6hqK1RN4xojlrf4gICb0KE4GyFxG7TBWWAUQohi7zltA==
+  dependencies:
+    "@embedpdf/engine-core" "3.2.0"
+
+"@embedpdf/core-annotation@3.2.0":
+  version "3.2.0"
+  resolved "https://registry.npmjs.org/@embedpdf/core-annotation/-/core-annotation-3.2.0.tgz#b45fef5be10fe170f7acb88ee8f8666ea567bd07"
+  integrity sha512-m2SWCn58N44UG9PUuy0fSME9wRhLATD3k0zCVCmXRSn1fIsmc+CdM9Q+sq9fkjMXZMFuRM/tPwDSGm3WM378vg==
+  dependencies:
+    "@embedpdf/core" "3.2.0"
+    "@embedpdf/core-geometry" "3.2.0"
+    "@embedpdf/core-text" "3.2.0"
+    "@embedpdf/engine-core" "3.2.0"
+
+"@embedpdf/core-fonts@3.2.0":
+  version "3.2.0"
+  resolved "https://registry.npmjs.org/@embedpdf/core-fonts/-/core-fonts-3.2.0.tgz#bdcb883838c32f49f73d67b1396c15d9a2a7dc9e"
+  integrity sha512-gSyX9DksFehXWkzNoe0yKKo1og4fF91iKewZ61kUq2c93gxfMvPGIeKzRe1RYzCjWz4Lukl9qAKVRSaDp3pQCA==
+  dependencies:
+    "@embedpdf/engine-core" "3.2.0"
+
+"@embedpdf/core-form@3.2.0":
+  version "3.2.0"
+  resolved "https://registry.npmjs.org/@embedpdf/core-form/-/core-form-3.2.0.tgz#065865bcffdb53168c63dd135c5f4f8f32f2a48d"
+  integrity sha512-n1ZaouPVSi2JpDcuimn3y5ovqfL8LGZhf/+rzk33cOW4B+AW3pvNcK0IAPaI5Elx9u83UIzAeCKAxqdAIlBdOA==
+  dependencies:
+    "@embedpdf/core-annotation" "3.2.0"
+    "@embedpdf/core-fonts" "3.2.0"
+    "@embedpdf/core-text" "3.2.0"
+    "@embedpdf/engine-core" "3.2.0"
+
+"@embedpdf/core-geometry@3.2.0":
+  version "3.2.0"
+  resolved "https://registry.npmjs.org/@embedpdf/core-geometry/-/core-geometry-3.2.0.tgz#067f89ab2d370c3fb305718984b86e5ab096e98c"
+  integrity sha512-fLRQK7XJkkLIovmTvhVf/YBDcTbouCX70Rn92XXruKtbc2iEsgSviuvL7lWgQItWVIqvZHNxvSnwW5sQx9MQ7g==
+
+"@embedpdf/core-js-sandbox@3.2.0":
+  version "3.2.0"
+  resolved "https://registry.npmjs.org/@embedpdf/core-js-sandbox/-/core-js-sandbox-3.2.0.tgz#88437ff6b3b5faae4714bef98d795e5ee483c6de"
+  integrity sha512-aoOoii+TIjZL4Fz0ghu7aljkoBuJXKjmFDxeVLDOFQbiVOTmpkAsJGnjeQpfMUe70TwqTSv5OHAs51W9aZVGsg==
+  dependencies:
+    "@embedpdf/core-acrojs" "3.2.0"
+    "@jitl/quickjs-singlefile-browser-release-sync" "0.31.0"
+    "@jitl/quickjs-wasmfile-release-sync" "0.31.0"
+    quickjs-emscripten-core "0.31.0"
+
+"@embedpdf/core-signature@3.2.0":
+  version "3.2.0"
+  resolved "https://registry.npmjs.org/@embedpdf/core-signature/-/core-signature-3.2.0.tgz#6fc36f1df0af9431e5c6ffb4e50674321590abe9"
+  integrity sha512-C9RpjvJesCgNMSL4k2q0Jk+haqMpSevHTKLD9kjrm61pSOARb7t47TQu7dfn8TSg/xeyIV8g8MQlvGVqBqV93A==
+  dependencies:
+    "@embedpdf/engine-core" "3.2.0"
+    asn1js "^3.0.5"
+    pkijs "^3.2.4"
+
+"@embedpdf/core-stage@3.2.0":
+  version "3.2.0"
+  resolved "https://registry.npmjs.org/@embedpdf/core-stage/-/core-stage-3.2.0.tgz#db05eac1bb6acb976344eb9ab29aabb6ee1c6243"
+  integrity sha512-/F9sm1AHwim8zUyXUKXnC2Nzzu5RHnaznylvjBKmtx6U/0h6SXIQ1u+1DOBc1vHB41OWYhGvdKkZoa6pdLlmvQ==
+  dependencies:
+    "@embedpdf/core-geometry" "3.2.0"
+
+"@embedpdf/core-text@3.2.0":
+  version "3.2.0"
+  resolved "https://registry.npmjs.org/@embedpdf/core-text/-/core-text-3.2.0.tgz#93d0a2e7453535111a2656db05d31a7fd767c19e"
+  integrity sha512-PNbl4dqlg21pnBUE6I0VfLGcGwLyNORzQUA7M+Hs9mwVSQ4Zjboan5wdqt0aM+vbT9Q3+o1jqKLvAj1iyceIjA==
+  dependencies:
+    "@embedpdf/core-fonts" "3.2.0"
+    "@embedpdf/engine-core" "3.2.0"
+    bidi-js "1.1.0"
+
+"@embedpdf/core-ui@3.2.0":
+  version "3.2.0"
+  resolved "https://registry.npmjs.org/@embedpdf/core-ui/-/core-ui-3.2.0.tgz#84781642660578155d20f519d3b20704be974aa4"
+  integrity sha512-4J2octGI4KWlqCHJY68MrVmD736lOZSWmh9czPik0jD6CBLL06h9Mm3nqJxoLEFVyf6jq/AFmaq6a+mOGrDTag==
+
+"@embedpdf/core@3.2.0":
+  version "3.2.0"
+  resolved "https://registry.npmjs.org/@embedpdf/core/-/core-3.2.0.tgz#f7f09186e5df5b407a7e49bf78e5ea23709c8a2d"
+  integrity sha512-eBQ4SI+7Pp+kOM3iqjKuuBRgNZ6BIFXeFcI4mkQPUXCBVoIYvJ9Y7X+jCB4xaB+VWQWNR4EJoEQQbQSh3Mozdw==
+  dependencies:
+    "@embedpdf/engine-core" "3.2.0"
+
+"@embedpdf/default-fallback-fonts@1.0.1":
+  version "1.0.1"
+  resolved "https://registry.npmjs.org/@embedpdf/default-fallback-fonts/-/default-fallback-fonts-1.0.1.tgz#bd6ca0db9c72106dc1ab1757d55db59ffc96d872"
+  integrity sha512-Z9qeQ2mfjyhjmhLG4+LtTa/78LepJf8uVsE3d2vs741HKOi4/Ki8jyTEcRM/gPdPeCz98d9dXV6428C81A718Q==
+
+"@embedpdf/engine-core@3.2.0":
+  version "3.2.0"
+  resolved "https://registry.npmjs.org/@embedpdf/engine-core/-/engine-core-3.2.0.tgz#4c6f6f87f8488f3aad5b21f04d27e79ab592f7cd"
+  integrity sha512-wcV9/Unsm9IFQoaa1xmJ31mFn+BLwGAb0zFg3vUjcwI0SZrJMFD0PzC18oF/I4dxIyeSOX8j7h+G78E677C1FA==
+  dependencies:
+    zod "^3.23.8"
+
+"@embedpdf/engine-runtime-darwin-arm64@3.2.0":
+  version "3.2.0"
+  resolved "https://registry.npmjs.org/@embedpdf/engine-runtime-darwin-arm64/-/engine-runtime-darwin-arm64-3.2.0.tgz#3cd9dbf036b6f559b48e94e6eae22a44e5a9a60a"
+  integrity sha512-+DLBBYI+ssTdXc2LMVXEUld01cXOOdaRshl+IKnFkUYSaDqrsMsWy38VqnCDKuQ26QwgZ5xt1uHic/RMsOFZYw==
+
+"@embedpdf/engine-runtime-darwin-x64@3.2.0":
+  version "3.2.0"
+  resolved "https://registry.npmjs.org/@embedpdf/engine-runtime-darwin-x64/-/engine-runtime-darwin-x64-3.2.0.tgz#255364e748024d6da94c2bb3ef01b2a6a406409c"
+  integrity sha512-LPaTJC7mpWrkvpKHDa5YcoiVOdy0mX7geJ4CHMZS6owyZhzdAtPIJHu0FGyew/IiShHUweTvxsn7onI54UrWAg==
+
+"@embedpdf/engine-runtime-linux-arm64@3.2.0":
+  version "3.2.0"
+  resolved "https://registry.npmjs.org/@embedpdf/engine-runtime-linux-arm64/-/engine-runtime-linux-arm64-3.2.0.tgz#0a1a7def53b69f90370318767160b1bc5522a091"
+  integrity sha512-+aJKYfLj5jRRadMncMQzLiRKoX7upI4ob+LrIDoxfkpJpyw/Im1zseFfaKAwrHnwRXUgBHS0M1p/flDbaiedjg==
+
+"@embedpdf/engine-runtime-linux-x64@3.2.0":
+  version "3.2.0"
+  resolved "https://registry.npmjs.org/@embedpdf/engine-runtime-linux-x64/-/engine-runtime-linux-x64-3.2.0.tgz#4b5a320e00836c4cac0a3af3fb8421c71f6323b4"
+  integrity sha512-hKfbBegUvw/Jp9/l5zTBOevJaSoseBdWejkQGQ45jgLi9y2gIiM/Jt3Nf0rF5aJN0J/sWtxpF72CNc1W+v6fAA==
+
+"@embedpdf/engine-runtime-linuxmusl-arm64@3.2.0":
+  version "3.2.0"
+  resolved "https://registry.npmjs.org/@embedpdf/engine-runtime-linuxmusl-arm64/-/engine-runtime-linuxmusl-arm64-3.2.0.tgz#95ab6172ff34cf4b423d0aded25d2cdfdb4d4e19"
+  integrity sha512-BGkPa5rByyYSYivTrKvNmHEX9Teb9+G/IPLsydJHHInpN4UgsnWYS+iVDh7YG0+Ksqj5Yy/6x/X+48c+SB14TA==
+
+"@embedpdf/engine-runtime-linuxmusl-x64@3.2.0":
+  version "3.2.0"
+  resolved "https://registry.npmjs.org/@embedpdf/engine-runtime-linuxmusl-x64/-/engine-runtime-linuxmusl-x64-3.2.0.tgz#3cde3602a594435275b1191c39322eb023938ba4"
+  integrity sha512-mz/rXK9hFhqj6fIdC9MTu1JXRWPfWqcq/MKCufeyA1okRXXKf4Dtbn9PvMGI71x9+AwwxlBnUANJKJ7hD2nGHQ==
+
+"@embedpdf/engine-runtime-wasm32@3.2.0":
+  version "3.2.0"
+  resolved "https://registry.npmjs.org/@embedpdf/engine-runtime-wasm32/-/engine-runtime-wasm32-3.2.0.tgz#bbe72712a765358500effb7c784e8d439a92188a"
+  integrity sha512-7T4D9XCbRWwI8WRvh+bbtDhMdclgUF4yZrpRH6Kx6ZFHsia08QydkdfzmYlqU8qorrgXbzizXCQnOxpPxaKLcg==
+
+"@embedpdf/engine-runtime-win32-arm64@3.2.0":
+  version "3.2.0"
+  resolved "https://registry.npmjs.org/@embedpdf/engine-runtime-win32-arm64/-/engine-runtime-win32-arm64-3.2.0.tgz#ff0c19abf5845143d641f3831ca72c6cc26438ae"
+  integrity sha512-zfw+F6tew6JcZWEqZprAdzcMrtVFsAAIlPGfb82wkK9k/JQITyhmMwJQYAMZA2HzpAzh1hEiKILRQec1IqjlYA==
+
+"@embedpdf/engine-runtime-win32-x64@3.2.0":
+  version "3.2.0"
+  resolved "https://registry.npmjs.org/@embedpdf/engine-runtime-win32-x64/-/engine-runtime-win32-x64-3.2.0.tgz#6feca3b20dcd3cbb2eae960f6358a4330b92f2df"
+  integrity sha512-YsnGtuhneiWB+mvO4Uk76FP8ToCUF5ONn5gSXo5Vo/BM6/lJcFAUC5e7JZzEj8uiUt9MYb4No0ofmdW5qvXuMQ==
+
+"@embedpdf/engine-runtime@3.2.0":
+  version "3.2.0"
+  resolved "https://registry.npmjs.org/@embedpdf/engine-runtime/-/engine-runtime-3.2.0.tgz#06dd4314b2f7428a081e091a27f36340b76ddf9e"
+  integrity sha512-E+OHCDULLdJQZk3Ip2q2Zuj1L0lKEMBJ6PzCRpXCaRrw6KVVv8TaEeAiG8YWjnB/37WeQBt0m4/ZnzNzRrlcjA==
+  dependencies:
+    detect-libc "^2.1.2"
+  optionalDependencies:
+    "@embedpdf/engine-runtime-darwin-arm64" "3.2.0"
+    "@embedpdf/engine-runtime-darwin-x64" "3.2.0"
+    "@embedpdf/engine-runtime-linux-arm64" "3.2.0"
+    "@embedpdf/engine-runtime-linux-x64" "3.2.0"
+    "@embedpdf/engine-runtime-linuxmusl-arm64" "3.2.0"
+    "@embedpdf/engine-runtime-linuxmusl-x64" "3.2.0"
+    "@embedpdf/engine-runtime-wasm32" "3.2.0"
+    "@embedpdf/engine-runtime-win32-arm64" "3.2.0"
+    "@embedpdf/engine-runtime-win32-x64" "3.2.0"
+
+"@embedpdf/engine-services@3.2.0":
+  version "3.2.0"
+  resolved "https://registry.npmjs.org/@embedpdf/engine-services/-/engine-services-3.2.0.tgz#3f763c460d15c667a415e740517929913e984468"
+  integrity sha512-xBdJS2q6ex1jMp/CRZPan8nBvC8YLlEEkNYHCwgY39h4Gmt1DUXhQ20+KISGE9humbvmlThmh5X34axaAnj+5A==
+  dependencies:
+    "@embedpdf/core-fonts" "3.2.0"
+    "@embedpdf/engine-core" "3.2.0"
+    "@embedpdf/engine-runtime" "3.2.0"
+
+"@embedpdf/engine@^3.2.0":
+  version "3.2.0"
+  resolved "https://registry.npmjs.org/@embedpdf/engine/-/engine-3.2.0.tgz#30cc595c7a37448b12531c487575c7a462522d88"
+  integrity sha512-rokoQDg8WBfUQ0B8r0o1OownP4t2GEfch4xb3TuRZj38gfNm+ffpjqj4ZYlzqhP19TX9f+wwx3O1Ew5rB0Q6VQ==
+  dependencies:
+    "@embedpdf/core-fonts" "3.2.0"
+    "@embedpdf/default-fallback-fonts" "1.0.1"
+    "@embedpdf/engine-core" "3.2.0"
+    "@embedpdf/engine-runtime" "3.2.0"
+    "@embedpdf/engine-runtime-wasm32" "3.2.0"
+    "@embedpdf/engine-services" "3.2.0"
+
+"@embedpdf/plugin-actions@3.2.0":
+  version "3.2.0"
+  resolved "https://registry.npmjs.org/@embedpdf/plugin-actions/-/plugin-actions-3.2.0.tgz#c6e62bdcc0e8b5e3b3f777f925909b7df4620de4"
+  integrity sha512-4oubxdVLCeztWlL12CfwCyCK2ykFu6zO/ZX3oZWxPtoQQCMi891LuLuyzWTPsW0sylIIdsREbpwdfva6hidKpw==
+  dependencies:
+    "@embedpdf/core" "3.2.0"
+    "@embedpdf/core-acrojs" "3.2.0"
+    "@embedpdf/core-js-sandbox" "3.2.0"
+    "@embedpdf/engine-core" "3.2.0"
+
+"@embedpdf/plugin-annotation@3.2.0":
+  version "3.2.0"
+  resolved "https://registry.npmjs.org/@embedpdf/plugin-annotation/-/plugin-annotation-3.2.0.tgz#19d60a92f3cb11a51d1e29ce44c006c5d7f5e38c"
+  integrity sha512-9pYr1d4I3QJFyQ3GeyuqhRwrYfmylgzo7q+/taocHNpBQIZVxE00wQgYPYWsDCCfGwrmKIfqls84k9GlRHDBfg==
+  dependencies:
+    "@embedpdf/core" "3.2.0"
+    "@embedpdf/core-acrojs" "3.2.0"
+    "@embedpdf/core-annotation" "3.2.0"
+    "@embedpdf/core-fonts" "3.2.0"
+    "@embedpdf/core-geometry" "3.2.0"
+    "@embedpdf/engine-core" "3.2.0"
+    "@embedpdf/plugin-actions" "3.2.0"
+    "@embedpdf/plugin-fonts" "3.2.0"
+    "@embedpdf/plugin-interaction" "3.2.0"
+    "@embedpdf/plugin-render" "3.2.0"
+    "@embedpdf/plugin-selection" "3.2.0"
+
+"@embedpdf/plugin-attachment@3.2.0":
+  version "3.2.0"
+  resolved "https://registry.npmjs.org/@embedpdf/plugin-attachment/-/plugin-attachment-3.2.0.tgz#4117de4c5083fe857a8c2ec43c07ca74889ef101"
+  integrity sha512-0rkA3TB/K1qkxuCnBlPT1F08VcXXEoPYc5gP5dez+Sl6DN9ovguG4Hvfge4aRXOU1dC0lUfPsga+TbVjlAOcnQ==
+  dependencies:
+    "@embedpdf/core" "3.2.0"
+    "@embedpdf/engine-core" "3.2.0"
+    "@embedpdf/plugin-annotation" "3.2.0"
+    "@embedpdf/plugin-stage" "3.2.0"
+
+"@embedpdf/plugin-commands@3.2.0":
+  version "3.2.0"
+  resolved "https://registry.npmjs.org/@embedpdf/plugin-commands/-/plugin-commands-3.2.0.tgz#ee670366ee44337699626524bdd39da98b307cd1"
+  integrity sha512-U//SvGbwvYzcx0bWAm2ug48SUUIG9XNTBTAJ8A29ZBAxVoNrZJjizG67tEbnijk/BvLEVn50zTjw9gYWLATakA==
+  dependencies:
+    "@embedpdf/core" "3.2.0"
+    "@embedpdf/core-ui" "3.2.0"
+    "@embedpdf/plugin-annotation" "3.2.0"
+    "@embedpdf/plugin-i18n" "3.2.0"
+    "@embedpdf/plugin-interaction" "3.2.0"
+    "@embedpdf/plugin-render" "3.2.0"
+    "@embedpdf/plugin-selection" "3.2.0"
+    "@embedpdf/plugin-shell" "3.2.0"
+    "@embedpdf/plugin-stage" "3.2.0"
+
+"@embedpdf/plugin-fonts@3.2.0":
+  version "3.2.0"
+  resolved "https://registry.npmjs.org/@embedpdf/plugin-fonts/-/plugin-fonts-3.2.0.tgz#52f6a5e86d94ce3f81d35ef67e6423539d095eda"
+  integrity sha512-sZLaEB48T4eppewSvHzuzZ54psHC72y58nfBwtJkbzKRUkCw+ZkAhzn8NTiv4OR+voyISIFj4i8J9k8+tjGaqA==
+  dependencies:
+    "@embedpdf/core" "3.2.0"
+    "@embedpdf/core-fonts" "3.2.0"
+    "@embedpdf/core-text" "3.2.0"
+    "@embedpdf/engine-core" "3.2.0"
+
+"@embedpdf/plugin-form@3.2.0":
+  version "3.2.0"
+  resolved "https://registry.npmjs.org/@embedpdf/plugin-form/-/plugin-form-3.2.0.tgz#b4bcbf0908e68b7a171c1609b2b6e85e9cb88e83"
+  integrity sha512-MkuW52h32YWyJjHZ+YSivIoYeTOQzrJ+oEk4PRgdmXWnYO63YFHKPlg2jOtqO7TwsRJcWBY3pLHQ0ZUB5Y3FWw==
+  dependencies:
+    "@embedpdf/core" "3.2.0"
+    "@embedpdf/core-acrojs" "3.2.0"
+    "@embedpdf/core-annotation" "3.2.0"
+    "@embedpdf/core-fonts" "3.2.0"
+    "@embedpdf/core-form" "3.2.0"
+    "@embedpdf/core-geometry" "3.2.0"
+    "@embedpdf/core-js-sandbox" "3.2.0"
+    "@embedpdf/engine-core" "3.2.0"
+    "@embedpdf/plugin-actions" "3.2.0"
+    "@embedpdf/plugin-annotation" "3.2.0"
+    "@embedpdf/plugin-fonts" "3.2.0"
+    "@embedpdf/plugin-interaction" "3.2.0"
+    "@embedpdf/plugin-render" "3.2.0"
+    "@embedpdf/plugin-stage" "3.2.0"
+
+"@embedpdf/plugin-history@3.2.0":
+  version "3.2.0"
+  resolved "https://registry.npmjs.org/@embedpdf/plugin-history/-/plugin-history-3.2.0.tgz#03548e098d2fb4b5db05408d8ba97dfcdc8a022a"
+  integrity sha512-mUabevmOu2VevRuxtqTxr1ekKmXUkguRlGHuSHgPT8tmx7jnXYZXdwPgtWaoGkywjXygwgJnVmadGT6xvQAeGw==
+  dependencies:
+    "@embedpdf/core" "3.2.0"
+    "@embedpdf/engine-core" "3.2.0"
+
+"@embedpdf/plugin-i18n@3.2.0":
+  version "3.2.0"
+  resolved "https://registry.npmjs.org/@embedpdf/plugin-i18n/-/plugin-i18n-3.2.0.tgz#fabdf3c59c046b44a3186292dd32c5cf2867f1dc"
+  integrity sha512-6Ero8COUi+ZXv3fzQEUO22+5WbPZA1A2aaJRIsK0AQIJNen7Una/XzhXGLa0wL+dcpFdLyPv2y/ILuLvr0eGTg==
+  dependencies:
+    "@embedpdf/core" "3.2.0"
+
+"@embedpdf/plugin-interaction@3.2.0":
+  version "3.2.0"
+  resolved "https://registry.npmjs.org/@embedpdf/plugin-interaction/-/plugin-interaction-3.2.0.tgz#3cbac7ec0e1aae50b665cb33908dc0fed8c08afe"
+  integrity sha512-YHQoOAJFyinGEvV5h1se18BNqp2pnsBmqQ1udITdjbJGRN+ZeNtajE0r0NGNNvtCrF4CSJvQIkOPX6WVmWYCUQ==
+  dependencies:
+    "@embedpdf/core" "3.2.0"
+    "@embedpdf/core-geometry" "3.2.0"
+
+"@embedpdf/plugin-link@3.2.0":
+  version "3.2.0"
+  resolved "https://registry.npmjs.org/@embedpdf/plugin-link/-/plugin-link-3.2.0.tgz#9cf6d2b11737a895d05ed74c32f7dc94164976fb"
+  integrity sha512-st8LvX7UVDH6CHhyTVPqv8vaoCG/DDk1bRi1Bxmmff4jFawArJKxEpBF3k7G6tAIUYc8SQrI+LiG5R6trTX3FA==
+  dependencies:
+    "@embedpdf/core" "3.2.0"
+    "@embedpdf/core-annotation" "3.2.0"
+    "@embedpdf/core-geometry" "3.2.0"
+    "@embedpdf/engine-core" "3.2.0"
+    "@embedpdf/plugin-actions" "3.2.0"
+    "@embedpdf/plugin-annotation" "3.2.0"
+    "@embedpdf/plugin-interaction" "3.2.0"
+    "@embedpdf/plugin-stage" "3.2.0"
+
+"@embedpdf/plugin-measurement@3.2.0":
+  version "3.2.0"
+  resolved "https://registry.npmjs.org/@embedpdf/plugin-measurement/-/plugin-measurement-3.2.0.tgz#84131e366a4cc3572cba4d45c83dcd9fbff364ed"
+  integrity sha512-EUat3MjNPWmgAmX/cxC58dKIV2pcAEeQK2n/aurVsg+lK0iMmnvLf6/hn9GjxSoWZ9kijBGTkZA488OqHPDsnA==
+  dependencies:
+    "@embedpdf/core" "3.2.0"
+    "@embedpdf/core-geometry" "3.2.0"
+    "@embedpdf/engine-core" "3.2.0"
+    "@embedpdf/plugin-annotation" "3.2.0"
+    "@embedpdf/plugin-interaction" "3.2.0"
+
+"@embedpdf/plugin-metadata@3.2.0":
+  version "3.2.0"
+  resolved "https://registry.npmjs.org/@embedpdf/plugin-metadata/-/plugin-metadata-3.2.0.tgz#47d413132c8e2c1937f1451e654d817716fc352e"
+  integrity sha512-FNnrx8gRnUx9a4Tsl67J4IQss0JwfQFzeGsTcnONfVzLUxt+gNSgH9GCzlG3mfyVZ4Pe2dMdpSJT6OwmKSRjaA==
+  dependencies:
+    "@embedpdf/core" "3.2.0"
+
+"@embedpdf/plugin-outline@3.2.0":
+  version "3.2.0"
+  resolved "https://registry.npmjs.org/@embedpdf/plugin-outline/-/plugin-outline-3.2.0.tgz#d8fd1216cf82ada475561bbefc8f37468709b153"
+  integrity sha512-qjuCRPu6iZJu2X18QNUPJVe5wTcXy29hcxUlE9CVPoFd2Ud3vY79EziNmC6PCOwj3Nv35CxnmoTTn8cFXLayRg==
+  dependencies:
+    "@embedpdf/core" "3.2.0"
+    "@embedpdf/engine-core" "3.2.0"
+    "@embedpdf/plugin-actions" "3.2.0"
+    "@embedpdf/plugin-i18n" "3.2.0"
+    "@embedpdf/plugin-link" "3.2.0"
+    "@embedpdf/plugin-selection" "3.2.0"
+    "@embedpdf/plugin-stage" "3.2.0"
+
+"@embedpdf/plugin-page-edit@3.2.0":
+  version "3.2.0"
+  resolved "https://registry.npmjs.org/@embedpdf/plugin-page-edit/-/plugin-page-edit-3.2.0.tgz#48840d3d233a23221f42cb9a4c51d96963a9c51d"
+  integrity sha512-iuTMUxS3MtzJj6glLG1MJDk41B34B6QHeotDMlmCc204t/QqCVpr0IP1NLl2l6B96+Y3UgZ7VY/tS1KK7hZ60Q==
+  dependencies:
+    "@embedpdf/core" "3.2.0"
+
+"@embedpdf/plugin-redaction@3.2.0":
+  version "3.2.0"
+  resolved "https://registry.npmjs.org/@embedpdf/plugin-redaction/-/plugin-redaction-3.2.0.tgz#f87ba9ac4d9acee274ed4d1e03cb49bd34c914f1"
+  integrity sha512-eVHHj6CfPNwrnl5i3OMygK+1ahqd/d9C1U6iyS+AybXIHV65xgPz7NAlbe7x0B0KYSF2GX/fFAvPFZ1U+Jgumg==
+  dependencies:
+    "@embedpdf/core" "3.2.0"
+    "@embedpdf/core-geometry" "3.2.0"
+    "@embedpdf/engine-core" "3.2.0"
+    "@embedpdf/plugin-annotation" "3.2.0"
+    "@embedpdf/plugin-search" "3.2.0"
+    "@embedpdf/plugin-selection" "3.2.0"
+
+"@embedpdf/plugin-render@3.2.0":
+  version "3.2.0"
+  resolved "https://registry.npmjs.org/@embedpdf/plugin-render/-/plugin-render-3.2.0.tgz#7562586fcae198b1ecc09b76683df897fc28d3b9"
+  integrity sha512-2a8RECbEyMwIT8uljeOZSU0A3kL3Q762P31kax/hTmxclJdMreoTVKJsAmqaZRRYcaR9/104JUbITomUn8yhXQ==
+  dependencies:
+    "@embedpdf/core" "3.2.0"
+    "@embedpdf/core-geometry" "3.2.0"
+    "@embedpdf/plugin-interaction" "3.2.0"
+
+"@embedpdf/plugin-search@3.2.0":
+  version "3.2.0"
+  resolved "https://registry.npmjs.org/@embedpdf/plugin-search/-/plugin-search-3.2.0.tgz#3b793b5fa2150947d2847c7c31ac47585e4693ff"
+  integrity sha512-JJlBjeZP2CKOqc8lGGk8oDF6KX0tGmKRnPWLDtCrlgLAfBRmxDQfvgGFf05Qwx+90IQyRBt3XeCbJBhjkMSS3A==
+  dependencies:
+    "@embedpdf/core" "3.2.0"
+    "@embedpdf/core-geometry" "3.2.0"
+    "@embedpdf/engine-core" "3.2.0"
+    "@embedpdf/plugin-stage" "3.2.0"
+
+"@embedpdf/plugin-selection@3.2.0":
+  version "3.2.0"
+  resolved "https://registry.npmjs.org/@embedpdf/plugin-selection/-/plugin-selection-3.2.0.tgz#0261e847f320e08ede26aca110373227d297e053"
+  integrity sha512-uqU9i5Le3DF97Tihu7Wult4xhagmVS/6T3lJVCwr2cA0qIeP0HSky2tppqpY/VEreMY4iGR84JFfAxLC6xOeyQ==
+  dependencies:
+    "@embedpdf/core" "3.2.0"
+    "@embedpdf/core-geometry" "3.2.0"
+    "@embedpdf/engine-core" "3.2.0"
+    "@embedpdf/plugin-interaction" "3.2.0"
+
+"@embedpdf/plugin-shell@3.2.0":
+  version "3.2.0"
+  resolved "https://registry.npmjs.org/@embedpdf/plugin-shell/-/plugin-shell-3.2.0.tgz#13b11c67bb43de29d734324c519bfd5ffd50cf64"
+  integrity sha512-F7GYT9J/Mz/iOPxdFYp0gGtRvCBlcfgZSi03cDliI6QPXVZaXV06cZXZ9W/faSCfYFomsEBjnkY4tcYMyb4J4w==
+  dependencies:
+    "@embedpdf/core" "3.2.0"
+
+"@embedpdf/plugin-signature@3.2.0":
+  version "3.2.0"
+  resolved "https://registry.npmjs.org/@embedpdf/plugin-signature/-/plugin-signature-3.2.0.tgz#84443336f521d23915f1c4559fb6b837ae06097e"
+  integrity sha512-7+WI/bRxr/isapdhZ2tpr02RnGWKrNztgGha6eedGQ7Z8qQLERGVKF+/RCYKOIiyanU7/CegDiZXkjweiVyMOQ==
+  dependencies:
+    "@embedpdf/core" "3.2.0"
+    "@embedpdf/core-signature" "3.2.0"
+    "@embedpdf/engine-core" "3.2.0"
+    "@embedpdf/plugin-annotation" "3.2.0"
+    "@embedpdf/plugin-form" "3.2.0"
+    "@embedpdf/plugin-interaction" "3.2.0"
+    "@embedpdf/plugin-stamp" "3.2.0"
+
+"@embedpdf/plugin-stage@3.2.0":
+  version "3.2.0"
+  resolved "https://registry.npmjs.org/@embedpdf/plugin-stage/-/plugin-stage-3.2.0.tgz#1d4682723bf55dfb004e6e528e0ef686c3700479"
+  integrity sha512-qn8m+2Ok6VetFHeRX9blt/lfyWM6RBLBRPkX+Rpfs9GHD8hOOa6PC7GOPciIAA+mEz7ZOE0USCR/qHmG/Zh14g==
+  dependencies:
+    "@embedpdf/core" "3.2.0"
+    "@embedpdf/core-geometry" "3.2.0"
+    "@embedpdf/core-stage" "3.2.0"
+    "@embedpdf/plugin-actions" "3.2.0"
+    "@embedpdf/plugin-interaction" "3.2.0"
+
+"@embedpdf/plugin-stamp@3.2.0":
+  version "3.2.0"
+  resolved "https://registry.npmjs.org/@embedpdf/plugin-stamp/-/plugin-stamp-3.2.0.tgz#aae15bdd157fe4a8e710fffaa35feec708252cfe"
+  integrity sha512-W9j44pUal+zjY523ZZBt8p2MILwIK5SFmZ4opecLvWZBElyiBq5IpniA9gOr98qFxc8mkfLxqXubXTAyt1Ai3Q==
+  dependencies:
+    "@embedpdf/core" "3.2.0"
+    "@embedpdf/core-acrojs" "3.2.0"
+    "@embedpdf/core-js-sandbox" "3.2.0"
+    "@embedpdf/engine-core" "3.2.0"
+    "@embedpdf/plugin-actions" "3.2.0"
+    "@embedpdf/plugin-annotation" "3.2.0"
+    "@embedpdf/plugin-form" "3.2.0"
+
+"@embedpdf/plugin-view-manager@3.2.0":
+  version "3.2.0"
+  resolved "https://registry.npmjs.org/@embedpdf/plugin-view-manager/-/plugin-view-manager-3.2.0.tgz#e5cba772a07c183b12573bc27792360064539818"
+  integrity sha512-kq6hzUQqMTYh2rJ/GDT9Q6QGgrwVGLfOB09KTJ7VV6gN1GL/i9x5dLwJRlZNxK8X+o5I2DrVSVpOpaBlXiGAUw==
+  dependencies:
+    "@embedpdf/core" "3.2.0"
+
+"@embedpdf/vue@^3.2.0":
+  version "3.2.0"
+  resolved "https://registry.npmjs.org/@embedpdf/vue/-/vue-3.2.0.tgz#907211ff02de36f3e739eabba0852ed8fddd5b2b"
+  integrity sha512-XdAh8Zb4p2QVGwP5gyHdVYmJToIvGzLYrgBR+9TL9dp/Ic51TojlWqHAyz8VXlcP8oV2sLzQDSKd5e1XAHRDqQ==
+  dependencies:
+    "@embedpdf/core" "3.2.0"
+    "@embedpdf/core-annotation" "3.2.0"
+    "@embedpdf/core-geometry" "3.2.0"
+    "@embedpdf/core-signature" "3.2.0"
+    "@embedpdf/core-stage" "3.2.0"
+    "@embedpdf/core-ui" "3.2.0"
+    "@embedpdf/plugin-actions" "3.2.0"
+    "@embedpdf/plugin-annotation" "3.2.0"
+    "@embedpdf/plugin-attachment" "3.2.0"
+    "@embedpdf/plugin-commands" "3.2.0"
+    "@embedpdf/plugin-fonts" "3.2.0"
+    "@embedpdf/plugin-form" "3.2.0"
+    "@embedpdf/plugin-history" "3.2.0"
+    "@embedpdf/plugin-i18n" "3.2.0"
+    "@embedpdf/plugin-interaction" "3.2.0"
+    "@embedpdf/plugin-link" "3.2.0"
+    "@embedpdf/plugin-measurement" "3.2.0"
+    "@embedpdf/plugin-metadata" "3.2.0"
+    "@embedpdf/plugin-outline" "3.2.0"
+    "@embedpdf/plugin-page-edit" "3.2.0"
+    "@embedpdf/plugin-redaction" "3.2.0"
+    "@embedpdf/plugin-render" "3.2.0"
+    "@embedpdf/plugin-search" "3.2.0"
+    "@embedpdf/plugin-selection" "3.2.0"
+    "@embedpdf/plugin-shell" "3.2.0"
+    "@embedpdf/plugin-signature" "3.2.0"
+    "@embedpdf/plugin-stage" "3.2.0"
+    "@embedpdf/plugin-stamp" "3.2.0"
+    "@embedpdf/plugin-view-manager" "3.2.0"
+    "@embedpdf/web" "3.2.0"
+
+"@embedpdf/web@3.2.0":
+  version "3.2.0"
+  resolved "https://registry.npmjs.org/@embedpdf/web/-/web-3.2.0.tgz#0a3b840394c476d14424e26db4307327145d350d"
+  integrity sha512-R8HW3C68x+RCy+LhTmcDBF6TyU/PBpLlWtq5PjX59dfongpMa+uASVgJe4PvhzgJ624a8XF8wqbf86gGd0C1bQ==
+
 "@emnapi/core@2.0.0-beta.2":
   version "2.0.0-beta.2"
   resolved "https://registry.npmjs.org/@emnapi/core/-/core-2.0.0-beta.2.tgz#ff0e7979b1c52afc59df7ebc792adc821f8f74d7"
@@ -69,82 +540,29 @@
   dependencies:
     tslib "^2.4.0"
 
+"@jitl/quickjs-ffi-types@0.31.0":
+  version "0.31.0"
+  resolved "https://registry.npmjs.org/@jitl/quickjs-ffi-types/-/quickjs-ffi-types-0.31.0.tgz#1f5cbec1c1ec03eba860842ea59914db3cf3c69a"
+  integrity sha512-1yrgvXlmXH2oNj3eFTrkwacGJbmM0crwipA3ohCrjv52gBeDaD7PsTvFYinlAnqU8iPME3LGP437yk05a2oejw==
+
+"@jitl/quickjs-singlefile-browser-release-sync@0.31.0":
+  version "0.31.0"
+  resolved "https://registry.npmjs.org/@jitl/quickjs-singlefile-browser-release-sync/-/quickjs-singlefile-browser-release-sync-0.31.0.tgz#34df3837c5a8d6445c170d446931e2480fcc5b8e"
+  integrity sha512-JctBiLmRpxEp83gJWhDcBuFqm5X7T683OLmncN9g0chAHkC8+y5cJmgknaAk5Rb/ANDR3pXMMnGdnGXDdysfBQ==
+  dependencies:
+    "@jitl/quickjs-ffi-types" "0.31.0"
+
+"@jitl/quickjs-wasmfile-release-sync@0.31.0":
+  version "0.31.0"
+  resolved "https://registry.npmjs.org/@jitl/quickjs-wasmfile-release-sync/-/quickjs-wasmfile-release-sync-0.31.0.tgz#66939a090f4a5132e25e15b76e76d09c25f92ea6"
+  integrity sha512-hYduecOByj9AsAfsJhZh5nA6exokmuFC8cls39+lYmTCGY51bgjJJJwReEu7Ff7vBWaQCL6TeDdVlnp2WYz0jw==
+  dependencies:
+    "@jitl/quickjs-ffi-types" "0.31.0"
+
 "@jridgewell/sourcemap-codec@^1.5.5":
   version "1.5.5"
   resolved "https://registry.npmmirror.com/@jridgewell/sourcemap-codec/-/sourcemap-codec-1.5.5.tgz#6912b00d2c631c0d15ce1a7ab57cd657f2a8f8ba"
   integrity sha512-cYQ9310grqxueWbl+WuIUIaiUaDcj7WOq5fVhEljNVgRfOUhY9fy2zTvfoqWsnebh8Sl70VScFbICvJnLKB0Og==
-
-"@napi-rs/canvas-android-arm64@1.1.1":
-  version "1.1.1"
-  resolved "https://registry.npmjs.org/@napi-rs/canvas-android-arm64/-/canvas-android-arm64-1.1.1.tgz#6d13d113f3e3dc17d139e64f2f775fe2fab720ba"
-  integrity sha512-rSEp3y+/YXw6TxSx4/NHSAFxumZrkMoXy2WiVqpKGT8oF5GHOUDzTKj45e5cvzophX4iFaxwKs3+/gNkJ7FmzQ==
-
-"@napi-rs/canvas-darwin-arm64@1.1.1":
-  version "1.1.1"
-  resolved "https://registry.npmjs.org/@napi-rs/canvas-darwin-arm64/-/canvas-darwin-arm64-1.1.1.tgz#b3d9039114de44840d5c139eba66da995cc17e11"
-  integrity sha512-NrPTZWpu0ywOGdp9JBDi46gABUzDJK6IzlP7cOEwaAuVVFM8KRakUWk12RK3YQ/Ea5FrNVTWUFTmkXVk4RfHqg==
-
-"@napi-rs/canvas-darwin-x64@1.1.1":
-  version "1.1.1"
-  resolved "https://registry.npmjs.org/@napi-rs/canvas-darwin-x64/-/canvas-darwin-x64-1.1.1.tgz#70be36a095d2e333206ce5a951eb1a0d5cedc034"
-  integrity sha512-p3DOT8VBfu8cR3SVBUs6cEzJmzwOUQkNfo1S4nKLgeKDsSlvn2oZsRaa9m0lfMccn1WbwtgKCEpJXmHhp++Zrg==
-
-"@napi-rs/canvas-linux-arm-gnueabihf@1.1.1":
-  version "1.1.1"
-  resolved "https://registry.npmjs.org/@napi-rs/canvas-linux-arm-gnueabihf/-/canvas-linux-arm-gnueabihf-1.1.1.tgz#739bf78c950a6c71dae39fcbd55fc9a224c30954"
-  integrity sha512-YWGJfMa8TtEhsHd/kDiyBFwT/dAbRQiXwsm0tDev4H5cJiyOk08CC83JihrwnUsePGjIvxC8/8g/zqKKuqjpQA==
-
-"@napi-rs/canvas-linux-arm64-gnu@1.1.1":
-  version "1.1.1"
-  resolved "https://registry.npmjs.org/@napi-rs/canvas-linux-arm64-gnu/-/canvas-linux-arm64-gnu-1.1.1.tgz#62464cea476cf7bf99a0c03121c2811de165c953"
-  integrity sha512-q1HBkNmB9mc6SF6uSz2492qSgsB46MqS+n3bPbPCE0kUXmWAPkH9vDADeawbhepQYn8RhlV2V/P5u6nykFXbuQ==
-
-"@napi-rs/canvas-linux-arm64-musl@1.1.1":
-  version "1.1.1"
-  resolved "https://registry.npmjs.org/@napi-rs/canvas-linux-arm64-musl/-/canvas-linux-arm64-musl-1.1.1.tgz#dbadaadaf21c38113448c75776b3fcc172b58798"
-  integrity sha512-aF4RkTp2T45fERFPCIqbxeKVhvhHuXeyyk5/jdJ+N0tGLZy4NvMkIrBWt6GOCmAQ7H0G3M/O03hAsc4Li52q4A==
-
-"@napi-rs/canvas-linux-riscv64-gnu@1.1.1":
-  version "1.1.1"
-  resolved "https://registry.npmjs.org/@napi-rs/canvas-linux-riscv64-gnu/-/canvas-linux-riscv64-gnu-1.1.1.tgz#ba1e7a991057c37da43a4ada217ecc52bfc08678"
-  integrity sha512-rCU4Xo5h0AQFEaa9dNr7Kxbk4gke9Uyi/I6ZXuBGYPSNWxYmWRS6DkrxaSKUJyCgA7c8l6lZBYfx/FtbJo3fMA==
-
-"@napi-rs/canvas-linux-x64-gnu@1.1.1":
-  version "1.1.1"
-  resolved "https://registry.npmjs.org/@napi-rs/canvas-linux-x64-gnu/-/canvas-linux-x64-gnu-1.1.1.tgz#92da8c905e8093890e2ad0c6f6bab364a7c599d8"
-  integrity sha512-7bZfDI9lxKqj9wJRHiSQBimCRanxDGHYE7TugnOmFJ9ScpgFSsLHFQtOH9wvmbQvBwv5nBuDBGJlG0+7iGkN+w==
-
-"@napi-rs/canvas-linux-x64-musl@1.1.1":
-  version "1.1.1"
-  resolved "https://registry.npmjs.org/@napi-rs/canvas-linux-x64-musl/-/canvas-linux-x64-musl-1.1.1.tgz#f8e823233b67ff5394463c55d0d73916e46da28a"
-  integrity sha512-xaFof2p0aO7C7ziMCLeueve09PVEKYCebljLTL3nyxoaRsYpEnBrUBP1aVpfD1Nk464dc7/wPV23fkHdOBie2g==
-
-"@napi-rs/canvas-win32-arm64-msvc@1.1.1":
-  version "1.1.1"
-  resolved "https://registry.npmjs.org/@napi-rs/canvas-win32-arm64-msvc/-/canvas-win32-arm64-msvc-1.1.1.tgz#26abc803dd8a6b9caf46c87662c537616b377d32"
-  integrity sha512-wOLX/WRwWr0xGj2hnDf/t3tZfPlzzL9rGPsO1UnYSuNbRzwas/hC8JXnuhaEs8eCw+J+W4zxOJiVF4RxkvcMfw==
-
-"@napi-rs/canvas-win32-x64-msvc@1.1.1":
-  version "1.1.1"
-  resolved "https://registry.npmjs.org/@napi-rs/canvas-win32-x64-msvc/-/canvas-win32-x64-msvc-1.1.1.tgz#9a1617772db06f3414e8b9a8bf626b460c8b6464"
-  integrity sha512-6Ge1AF1SVO+Ypjaw9IPcApm95krR3GQ32HgVqlIckbN/WqUlWYS0hnb8ZIdu3e0IbutbJgd8D2qSeb2/Cdpbdw==
-
-"@napi-rs/canvas@^1.0.13":
-  version "1.1.1"
-  resolved "https://registry.npmjs.org/@napi-rs/canvas/-/canvas-1.1.1.tgz#e1ad10d58e298e53c72ee8b8aedf9f01476af5ab"
-  integrity sha512-UyNspnx0rXclATMOBXiWgy1xtWUSUDm4UOO6+YO8xzyVKaZRpvK+SlJSCtRoSI9J/mEqklJiPYtroN1B+hgLXg==
-  optionalDependencies:
-    "@napi-rs/canvas-android-arm64" "1.1.1"
-    "@napi-rs/canvas-darwin-arm64" "1.1.1"
-    "@napi-rs/canvas-darwin-x64" "1.1.1"
-    "@napi-rs/canvas-linux-arm-gnueabihf" "1.1.1"
-    "@napi-rs/canvas-linux-arm64-gnu" "1.1.1"
-    "@napi-rs/canvas-linux-arm64-musl" "1.1.1"
-    "@napi-rs/canvas-linux-riscv64-gnu" "1.1.1"
-    "@napi-rs/canvas-linux-x64-gnu" "1.1.1"
-    "@napi-rs/canvas-linux-x64-musl" "1.1.1"
-    "@napi-rs/canvas-win32-arm64-msvc" "1.1.1"
-    "@napi-rs/canvas-win32-x64-msvc" "1.1.1"
 
 "@napi-rs/wasm-runtime@1.2.6":
   version "1.2.6"
@@ -152,6 +570,11 @@
   integrity sha512-mRyDmEw9/fCDXCGfL1sbgIw/GUK0PVxRW4YwgPN61F3LQ+fSyoBFarJVzgGyhF6kRzEQZ0FejDqm4WLXSeqQmw==
   dependencies:
     "@tybys/wasm-util" "^0.10.3"
+
+"@noble/hashes@1.8.0":
+  version "1.8.0"
+  resolved "https://registry.npmjs.org/@noble/hashes/-/hashes-1.8.0.tgz#cee43d801fcef9644b11b8194857695acd5f815a"
+  integrity sha512-jCs9ldd7NwzpgXDIf6P3+NrHh9/sD6CQdxHyjQI+h/6rDNo88ypBxxz45UDuZHz9r3tNz7N/VInSVoVdtXEI4A==
 
 "@oxc-project/types@=0.156.0":
   version "0.156.0"
@@ -343,11 +766,6 @@
   dependencies:
     tslib "^2.4.0"
 
-"@types/hammerjs@^2.0.46":
-  version "2.0.46"
-  resolved "https://registry.npmmirror.com/@types/hammerjs/-/hammerjs-2.0.46.tgz#381daaca1360ff8a7c8dff63f32e69745b9fb1e1"
-  integrity sha512-ynRvcq6wvqexJ9brDMS4BnBLzmr0e14d6ZJTEShTBWKymQiHwlAyGu0ZPEFI2Fh1U53F7tN9ufClWM5KvqkKOw==
-
 "@types/lodash@^4.17.27":
   version "4.17.27"
   resolved "https://registry.npmjs.org/@types/lodash/-/lodash-4.17.27.tgz#15fb73275b64dbfe49e2ae8376bb469b352a47a7"
@@ -359,106 +777,6 @@
   integrity sha512-MzQj+8Kx3XI40OmUAE6Qoh58ZMNstNNMwn2nfd3qWsfe7nDNSqJNzes4njhz6AHwrSHOffSLwXU6yb474Q4aog==
   dependencies:
     undici-types "~8.9.0"
-
-"@typescript/typescript-aix-ppc64@7.0.2":
-  version "7.0.2"
-  resolved "https://registry.npmjs.org/@typescript/typescript-aix-ppc64/-/typescript-aix-ppc64-7.0.2.tgz#cdc7ce81d60f1e09034960ddfb1fb880d7a776b6"
-  integrity sha512-MTKKkWB7p/0E9xi1d1tHtZ5PiLkGEMIq88pK2CubZjOsLtYTLqhgIgi6zepFa+9GHZ6h05NMCkQxGKiPXMxXtQ==
-
-"@typescript/typescript-darwin-arm64@7.0.2":
-  version "7.0.2"
-  resolved "https://registry.npmjs.org/@typescript/typescript-darwin-arm64/-/typescript-darwin-arm64-7.0.2.tgz#a55fdfcfa58df58d27db2237cde6a5c1e35a7235"
-  integrity sha512-gowzar9MwS/aRWp6f3a4KUqzRjAZjOsmGNCM6LcTgXum+dBfgsBVMN+AgvOCCbguXyick6LJhpBszxMebJ8syA==
-
-"@typescript/typescript-darwin-x64@7.0.2":
-  version "7.0.2"
-  resolved "https://registry.npmjs.org/@typescript/typescript-darwin-x64/-/typescript-darwin-x64-7.0.2.tgz#38d1c9172800a91d707bec64d2a370a016634db4"
-  integrity sha512-SZ9xZInqApNlNGc9s0W1VSsktYSOe9cFqNOIqmN1Gs8SmkjKZYFt017G4VwPxASInODuAdbTW7sXiFUf893RgA==
-
-"@typescript/typescript-freebsd-arm64@7.0.2":
-  version "7.0.2"
-  resolved "https://registry.npmjs.org/@typescript/typescript-freebsd-arm64/-/typescript-freebsd-arm64-7.0.2.tgz#f1ff8810030b35d2b5be0db6a2dc650460ea94fa"
-  integrity sha512-W5NH4y/J0plIIS5b2xvTEkU7JFxyqdMAOgf+Ilhl0vHQXKO5dZoxd+C/jEtq56c4F3wk71RB4BMRQ2XdI+bwYQ==
-
-"@typescript/typescript-freebsd-x64@7.0.2":
-  version "7.0.2"
-  resolved "https://registry.npmjs.org/@typescript/typescript-freebsd-x64/-/typescript-freebsd-x64-7.0.2.tgz#3d86b03f353c5b1ba95162eb6ce35533bfc294bd"
-  integrity sha512-UMGDx5sTpzNw3WiPebH7l90IWfJggEd+egHt/q6p7/Cm3zqoV7VxkGXt+3DxPIw8CcmvAB0j3sVVfbhX+M4Tpw==
-
-"@typescript/typescript-linux-arm64@7.0.2":
-  version "7.0.2"
-  resolved "https://registry.npmjs.org/@typescript/typescript-linux-arm64/-/typescript-linux-arm64-7.0.2.tgz#d9334d96d6dac6ff85da9c865588948de939e91f"
-  integrity sha512-Qh4eU4/y3yDjnfjjyPYihMj5/ODIlmt+Bzu17OI+fiSRDW57QmU5SiN63exPRNJPKUzcc1INa1NXdrJ+MqHjUQ==
-
-"@typescript/typescript-linux-arm@7.0.2":
-  version "7.0.2"
-  resolved "https://registry.npmjs.org/@typescript/typescript-linux-arm/-/typescript-linux-arm-7.0.2.tgz#ad94b41e1aee2a4dcc6a298c7b67c43345fde32e"
-  integrity sha512-gffT3xPz9sR7j/YJExkyPntrI0P2EP9XbOyWzth2/Gs0RstK+90RBcO0ncXoXy/beYll1SXw846Nf2zdnEz0QQ==
-
-"@typescript/typescript-linux-loong64@7.0.2":
-  version "7.0.2"
-  resolved "https://registry.npmjs.org/@typescript/typescript-linux-loong64/-/typescript-linux-loong64-7.0.2.tgz#2965aee4fc873360139d893daafe6397a29138ad"
-  integrity sha512-uEHck9i8hoAzXPiYRib1O7miOnz23SxIeVl6F4LXox+qov1K35jHcEW6VHKvZI+pyvl7fZEP4MCU5LYvIq1GuQ==
-
-"@typescript/typescript-linux-mips64el@7.0.2":
-  version "7.0.2"
-  resolved "https://registry.npmjs.org/@typescript/typescript-linux-mips64el/-/typescript-linux-mips64el-7.0.2.tgz#1a887a311bed3a833f80bfd4a9ed37c271936cf0"
-  integrity sha512-R4KvAMnE43W5Qeqb0Ly56O3mWMWIAgsMyz36DCaycd5nbg/9kzm0liw3JocfRqyJY0KPmzFjbswozXyW0DnIYA==
-
-"@typescript/typescript-linux-ppc64@7.0.2":
-  version "7.0.2"
-  resolved "https://registry.npmjs.org/@typescript/typescript-linux-ppc64/-/typescript-linux-ppc64-7.0.2.tgz#8b63c9b2f445b393eb4e43ec21da225dade3577d"
-  integrity sha512-DORx5b3sd/4S7eayxm4FQv+A7CrkUIGRaHiwI8oiHTAI1fAPWhF4J0vAlkC8biAlHSVVwxMQ3tjZ2/DVbnQiiA==
-
-"@typescript/typescript-linux-riscv64@7.0.2":
-  version "7.0.2"
-  resolved "https://registry.npmjs.org/@typescript/typescript-linux-riscv64/-/typescript-linux-riscv64-7.0.2.tgz#b6e8a35c289b3ea97a92a41d461aaeed0d3b36e1"
-  integrity sha512-wf0jqEDOjrPRnKwYRyyJDRo11KMbvMFrU+q4zqKyChODBzvlkbhNQfKvLxQCcwTpdDaXSHZTVuh0JoCrKCUMHQ==
-
-"@typescript/typescript-linux-s390x@7.0.2":
-  version "7.0.2"
-  resolved "https://registry.npmjs.org/@typescript/typescript-linux-s390x/-/typescript-linux-s390x-7.0.2.tgz#2ef96693be4861f6d17965427e5b009cbbed1a3e"
-  integrity sha512-IkwJc3L7yhytWd/ewjyxNDfOmswCm9GWMJT/ue/dU4aZNbwZeYAetq42VyLmsmSjvoX7z74X6ZaYCtzAr0EuGw==
-
-"@typescript/typescript-linux-x64@7.0.2":
-  version "7.0.2"
-  resolved "https://registry.npmjs.org/@typescript/typescript-linux-x64/-/typescript-linux-x64-7.0.2.tgz#73269cb0baba50aea0ca060445a6b88e583f1ce2"
-  integrity sha512-EYdf2cNg7rgCWJnxCdJ+F3V39O8ihb37eHAu1LK8oAFizgTQbPOK7zHHXbPt8rX24COqODXeI3sIf0fCXG7H/A==
-
-"@typescript/typescript-netbsd-arm64@7.0.2":
-  version "7.0.2"
-  resolved "https://registry.npmjs.org/@typescript/typescript-netbsd-arm64/-/typescript-netbsd-arm64-7.0.2.tgz#3a3649f97fafa210b4e6e3798c15e06605c8a901"
-  integrity sha512-+polYF4MF04aPpO5FTkHran9yUQDSXqy5GiSDKpsll5jy3l3+g9QLhpf39T+ePtefhXLOGrLl0QIjkQP6VnelA==
-
-"@typescript/typescript-netbsd-x64@7.0.2":
-  version "7.0.2"
-  resolved "https://registry.npmjs.org/@typescript/typescript-netbsd-x64/-/typescript-netbsd-x64-7.0.2.tgz#47ec59491a40c470d2807dc4d2b825528fd979ab"
-  integrity sha512-8YIT0EHM/3dq10ZOVF/A7pc/YSMtbcecct4rWtexrnSCHOPcpC2KTLXfTCR6vDpnSiY12heNb1GiN/wu+T/FyA==
-
-"@typescript/typescript-openbsd-arm64@7.0.2":
-  version "7.0.2"
-  resolved "https://registry.npmjs.org/@typescript/typescript-openbsd-arm64/-/typescript-openbsd-arm64-7.0.2.tgz#796be8da0bd989d8a3fb96f2801e38a8365b4baf"
-  integrity sha512-APT8+ClYnuYm1u9+kgGXoMj2VzWzcymwh2gNSQVySHfkRDGOTVkoWLjCmOQSaO+PoqQ57B0flRp9SA+7GnnkzQ==
-
-"@typescript/typescript-openbsd-x64@7.0.2":
-  version "7.0.2"
-  resolved "https://registry.npmjs.org/@typescript/typescript-openbsd-x64/-/typescript-openbsd-x64-7.0.2.tgz#d37fe2a729eb942c076c454ee7f1815faf7d560f"
-  integrity sha512-yX7s+Q0Dln0Dt9tEzZsAjXXR/+ytBM7AlglaqyeMPxQszJ1JhlJdZ6jLA+IzldHtflX81em7lDao1xXu+aRRkg==
-
-"@typescript/typescript-sunos-x64@7.0.2":
-  version "7.0.2"
-  resolved "https://registry.npmjs.org/@typescript/typescript-sunos-x64/-/typescript-sunos-x64-7.0.2.tgz#aba8d3464c3565a7044789baba96916bd4ab2c88"
-  integrity sha512-dLJDGaLZ1D4HPQn62u1n8mBDkJREwMsAkCdkwd4Ieqw+x3TUyTsqY0YiBCtE6H6OzzgGk3iuZ3vFWRS+E8/d1g==
-
-"@typescript/typescript-win32-arm64@7.0.2":
-  version "7.0.2"
-  resolved "https://registry.npmjs.org/@typescript/typescript-win32-arm64/-/typescript-win32-arm64-7.0.2.tgz#b9de50a17196383f62620b5f9d0a2f34ad3b60d7"
-  integrity sha512-Gyl1Vy6OsWesLzmq+EP0Fb7b4Nid5232AvcA2SFcdYreldpNtYFFofPjnt62y9hQy7VTaZp65ICJjuAQRaVcIQ==
-
-"@typescript/typescript-win32-x64@7.0.2":
-  version "7.0.2"
-  resolved "https://registry.npmjs.org/@typescript/typescript-win32-x64/-/typescript-win32-x64-7.0.2.tgz#cf3b7b0d6ce5635daca4c8e01c189cdcde47ec3c"
-  integrity sha512-0BQ3HkAHHlKLSp1qRvf3SUhGpGsDuhB/jgFw75guyqbxJqEaS0Cw/VFO8i2nHglJUzQCRtMMR/IBAKE3ETMC4g==
 
 "@vitejs/plugin-vue@^6.0.11":
   version "6.0.11"
@@ -622,6 +940,27 @@ alien-signals@^3.2.1:
   resolved "https://registry.npmjs.org/alien-signals/-/alien-signals-3.2.1.tgz#eb66256949bce90b7d30d055e2752e62d6930c7c"
   integrity sha512-I8FjmltrfnDFoZedi5CG8DghVYNhzb/Ijluz7tCSJH0xpd0484Kowhbb1XDYOxfJpU1p5wnM2X54dA+IfGyD1g==
 
+asn1js@^3.0.5, asn1js@^3.0.6:
+  version "3.1.0"
+  resolved "https://registry.npmjs.org/asn1js/-/asn1js-3.1.0.tgz#332de2e8241f229531013990d1ecda958aaf5cf5"
+  integrity sha512-HWYi1THkOqguCiO+vwj09ZkQFD2kKEsejYHAYCtX0D80WVdoDnvRc9IukXX/jeb0T9NRWJnRtqwdbHltnFjwXA==
+  dependencies:
+    pvtsutils "^1.3.6"
+    pvutils "^1.2.0"
+    tslib "^2.8.1"
+
+bidi-js@1.1.0:
+  version "1.1.0"
+  resolved "https://registry.npmjs.org/bidi-js/-/bidi-js-1.1.0.tgz#c92efafe3fce3b9fdd30ba67bdddf0dd4d424af7"
+  integrity sha512-fX1Onk0tdVPC7obPWB5EbJ1z7NVhLq4m2xZLq2YXBkxzMXIGRpNMU88n0EPgWseKl12J7zXs7qrDxPK4sRs2fg==
+  dependencies:
+    require-from-string "^2.0.2"
+
+bytestreamjs@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.npmjs.org/bytestreamjs/-/bytestreamjs-2.0.1.tgz#a32947c7ce389a6fa11a09a9a563d0a45889535e"
+  integrity sha512-U1Z/ob71V/bXfVABvNr/Kumf5VyeQRBEm6Txb0PQ6S7V5GpBM3w4Cbqz/xPDicR5tN0uvDifng8C+5qECeGwyQ==
+
 chokidar@^5.0.0:
   version "5.0.0"
   resolved "https://registry.npmmirror.com/chokidar/-/chokidar-5.0.0.tgz#949c126a9238a80792be9a0265934f098af369a5"
@@ -634,12 +973,7 @@ csstype@^3.2.3:
   resolved "https://registry.npmmirror.com/csstype/-/csstype-3.2.3.tgz#ec48c0f3e993e50648c86da559e2610995cf989a"
   integrity sha512-z1HGKcYy2xA8AGQfwrn0PAy+PB7X/GSj3UVJW9qKyn43xWa+gl5nXmU4qqLMRzWVLFC8KusUX8T/0kCiOYpAIQ==
 
-current-device@^2.6.0:
-  version "2.6.0"
-  resolved "https://registry.npmjs.org/current-device/-/current-device-2.6.0.tgz#667d294b0a34ea821ac5c0c8350c2bc8b20efa70"
-  integrity sha512-4ULV/V0Jb01JP9bvipI0O84YK5nnU0yvTpy4ceIzMJFRo0IsLP81j71Mnbja14UDcgLErMKJWVUjG/yhz4q6+Q==
-
-detect-libc@^2.0.3:
+detect-libc@^2.0.3, detect-libc@^2.1.2:
   version "2.1.2"
   resolved "https://registry.npmjs.org/detect-libc/-/detect-libc-2.1.2.tgz#689c5dcdc1900ef5583a4cb9f6d7b473742074ad"
   integrity sha512-Btj2BOOO83o3WyH59e8MgXsxEQVcarkUOpEYrubB0urwnN10yQ364rsiByU11nZlqWYZm05i/of7io4mzihBtQ==
@@ -663,11 +997,6 @@ fsevents@~2.3.3:
   version "2.3.3"
   resolved "https://registry.npmmirror.com/fsevents/-/fsevents-2.3.3.tgz#cac6407785d03675a2a5e1a5305c697b347d90d6"
   integrity sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==
-
-hammerjs@^2.0.8:
-  version "2.0.8"
-  resolved "https://registry.npmjs.org/hammerjs/-/hammerjs-2.0.8.tgz#04ef77862cff2bb79d30f7692095930222bf60f1"
-  integrity sha512-tSQXBXS/MWQOn/RKckawJ61vvsDpCom87JgxiYdGwHdOa0ht0vzUWDlfioofFCRU0L+6NGDt6XzbgoJvZkMeRQ==
 
 immutable@^5.1.5:
   version "5.1.5"
@@ -792,13 +1121,6 @@ path-browserify@^1.0.1:
   resolved "https://registry.npmmirror.com/path-browserify/-/path-browserify-1.0.1.tgz#d98454a9c3753d5790860f16f68867b9e46be1fd"
   integrity sha512-b7uo2UCUOYZcnF/3ID0lulOJi/bafxa1xPe7ZPsammBSpjSWQkjNxlt635YGS2MiR9GjvuXCtz2emr3jbsz98g==
 
-pdfjs-dist@^6.5.438:
-  version "6.5.438"
-  resolved "https://registry.npmjs.org/pdfjs-dist/-/pdfjs-dist-6.5.438.tgz#e7f8986ec4ea04057b5d9d2f0e5b63ea94d2303f"
-  integrity sha512-vg8Pw1x+AFKy4AMDvhuWl5cOYV8d698UoEANoFFhc79hqXDnZQqnOXoxw3HG907WHOg1JYOvLhP756boddFxpA==
-  optionalDependencies:
-    "@napi-rs/canvas" "^1.0.13"
-
 picocolors@^1.1.1:
   version "1.1.1"
   resolved "https://registry.npmjs.org/picocolors/-/picocolors-1.1.1.tgz#3d321af3eab939b083c8f929a1d12cda81c26b6b"
@@ -814,6 +1136,18 @@ picomatch@^4.0.4, picomatch@^4.0.7:
   resolved "https://registry.npmmirror.com/picomatch/-/picomatch-4.0.7.tgz#6313360034ccb36b3dc61ecbdff78121f90fe21f"
   integrity sha512-qcJu88Q2IWqJsDD529JKMdwGm/dvInW4HvQnRwiH9JtihJvzGOscDtHE3x1pBKeUOTysQ8kVmLnJ2kJu7yhcGA==
 
+pkijs@^3.2.4:
+  version "3.4.3"
+  resolved "https://registry.npmjs.org/pkijs/-/pkijs-3.4.3.tgz#3d94b67b86f77474c9024f1992c2f6b56c246e9e"
+  integrity sha512-V9kOzaItwDgqlryhXysQsAXUEKi5O7kqWUaP3dXI7MLvkPqWWMb4wVb1QAtmEDCKI+XIAINsZoNKMFF7sZb1eg==
+  dependencies:
+    "@noble/hashes" "1.8.0"
+    asn1js "^3.0.6"
+    bytestreamjs "^2.0.1"
+    pvtsutils "^1.3.6"
+    pvutils "^1.1.3"
+    tslib "^2.8.1"
+
 postcss@^8.5.32:
   version "8.5.33"
   resolved "https://registry.npmjs.org/postcss/-/postcss-8.5.33.tgz#088a2fee1bdee7ea1ffaf8abb4288513e7097ab0"
@@ -823,10 +1157,34 @@ postcss@^8.5.32:
     picocolors "^1.1.1"
     source-map-js "^1.2.2"
 
+pvtsutils@^1.3.6:
+  version "1.3.6"
+  resolved "https://registry.npmjs.org/pvtsutils/-/pvtsutils-1.3.6.tgz#ec46e34db7422b9e4fdc5490578c1883657d6001"
+  integrity sha512-PLgQXQ6H2FWCaeRak8vvk1GW462lMxB5s3Jm673N82zI4vqtVUPuZdffdZbPDFRoU8kAhItWFtPCWiPpp4/EDg==
+  dependencies:
+    tslib "^2.8.1"
+
+pvutils@^1.1.3, pvutils@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.npmjs.org/pvutils/-/pvutils-1.2.0.tgz#4b5487a9cccd52d275b0538775790a3ca982bc22"
+  integrity sha512-BbubeCEyTuQjVMakvJQ/Sxbc93F2pwmbsxONT/ZRrwU7Ua38d8unYTwXpTVLAKJ4BDuH9IGztCjQcd/N/39Dvg==
+
+quickjs-emscripten-core@0.31.0:
+  version "0.31.0"
+  resolved "https://registry.npmjs.org/quickjs-emscripten-core/-/quickjs-emscripten-core-0.31.0.tgz#22cbccec207adb6ce486ec1e90730499815e3e15"
+  integrity sha512-oQz8p0SiKDBc1TC7ZBK2fr0GoSHZKA0jZIeXxsnCyCs4y32FStzCW4d1h6E1sE0uHDMbGITbk2zhNaytaoJwXQ==
+  dependencies:
+    "@jitl/quickjs-ffi-types" "0.31.0"
+
 readdirp@^5.0.0:
   version "5.1.1"
   resolved "https://registry.npmmirror.com/readdirp/-/readdirp-5.1.1.tgz#520bca06f9d1ae1b96cc0800dbe84b983d19422c"
   integrity sha512-Kko+Y5XQ6fM+Ce3dq3m9YGxnacYZYl9cA1wZjaF3Vbry2L3i1qVg8+CAgNPsXRArPMUMCaOR7oa9Nqntc43JKA==
+
+require-from-string@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.npmjs.org/require-from-string/-/require-from-string-2.0.2.tgz#89a7fdd938261267318eafe14f9c32e598c36909"
+  integrity sha512-Xf0nWe6RseziFMu+Ap9biiUbmplq6S9/p+7w7YXP/JBHhrUDDUhwa+vANyubuqfZWTveU//DYVGsDG7RKL/vEw==
 
 rolldown@~1.2.18:
   version "1.2.19"
@@ -882,36 +1240,15 @@ tinyglobby@^0.2.17:
     fdir "^6.5.0"
     picomatch "^4.0.4"
 
-tslib@^2.4.0:
+tslib@^2.4.0, tslib@^2.8.1:
   version "2.9.1"
   resolved "https://registry.npmjs.org/tslib/-/tslib-2.9.1.tgz#8986213ba2f17f38ba39a7c43d0e565a9134ff5f"
   integrity sha512-a4Ux9VKuIMHsOS7ENbEq6hK2ZGYIT27Rtl0E4eD9KqwxhKiQeMZE/9xb3IdYwWaSOyIBQLExhQgXDTYoiCxnWA==
 
-typescript@~7.0.2:
-  version "7.0.2"
-  resolved "https://registry.npmjs.org/typescript/-/typescript-7.0.2.tgz#9ec773d7954a8c182c17cc5bbd575aa28bc51582"
-  integrity sha512-8FYau96o3NKOhbjKi/qNvG/W5jhzxkbdm5sj9AbZ/5T5sWqn3hJgLfGx27sRKZWTvyzCP8dLRBTf5tBTSRVUNA==
-  optionalDependencies:
-    "@typescript/typescript-aix-ppc64" "7.0.2"
-    "@typescript/typescript-darwin-arm64" "7.0.2"
-    "@typescript/typescript-darwin-x64" "7.0.2"
-    "@typescript/typescript-freebsd-arm64" "7.0.2"
-    "@typescript/typescript-freebsd-x64" "7.0.2"
-    "@typescript/typescript-linux-arm" "7.0.2"
-    "@typescript/typescript-linux-arm64" "7.0.2"
-    "@typescript/typescript-linux-loong64" "7.0.2"
-    "@typescript/typescript-linux-mips64el" "7.0.2"
-    "@typescript/typescript-linux-ppc64" "7.0.2"
-    "@typescript/typescript-linux-riscv64" "7.0.2"
-    "@typescript/typescript-linux-s390x" "7.0.2"
-    "@typescript/typescript-linux-x64" "7.0.2"
-    "@typescript/typescript-netbsd-arm64" "7.0.2"
-    "@typescript/typescript-netbsd-x64" "7.0.2"
-    "@typescript/typescript-openbsd-arm64" "7.0.2"
-    "@typescript/typescript-openbsd-x64" "7.0.2"
-    "@typescript/typescript-sunos-x64" "7.0.2"
-    "@typescript/typescript-win32-arm64" "7.0.2"
-    "@typescript/typescript-win32-x64" "7.0.2"
+typescript@~5.9.3:
+  version "5.9.3"
+  resolved "https://registry.npmjs.org/typescript/-/typescript-5.9.3.tgz#5b4f59e15310ab17a216f5d6cf53ee476ede670f"
+  integrity sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==
 
 undici-types@~8.9.0:
   version "8.9.0"
@@ -977,3 +1314,8 @@ vue@^3.5.45:
     "@vue/runtime-dom" "3.5.45"
     "@vue/server-renderer" "3.5.45"
     "@vue/shared" "3.5.45"
+
+zod@^3.23.8:
+  version "3.25.76"
+  resolved "https://registry.npmjs.org/zod/-/zod-3.25.76.tgz#26841c3f6fd22a6a2760e7ccb719179768471e34"
+  integrity sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ==

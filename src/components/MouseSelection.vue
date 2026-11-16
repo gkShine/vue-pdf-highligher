@@ -27,7 +27,7 @@ const emit = defineEmits<{
   dragstart: []
   dragend: []
   change: [isVisible: boolean]
-  selection: [startTarget: HTMLElement, boundingRect: ViewportRect, reset: () => void]
+  selection: [startPoint: Point, boundingRect: ViewportRect, reset: () => void]
 }>()
 
 const rootRef = ref<HTMLElement | null>(null)
@@ -39,76 +39,72 @@ const locked = ref(false)
 let container: HTMLElement | null = null
 let containerBoundingRect: DOMRect | null = null
 
-const onContainerMouseMove = (event: MouseEvent) => {
+const toContainerCoords = (clientX: number, clientY: number): Point => {
+  if (!container) {
+    return { x: 0, y: 0 }
+  }
+
+  // Stage 通过内部相机滚动而非原生 scrollTop，容器坐标即视口坐标
+  containerBoundingRect = container.getBoundingClientRect()
+
+  return {
+    x: clientX - containerBoundingRect.left,
+    y: clientY - containerBoundingRect.top
+  }
+}
+
+const onPointerMove = (event: PointerEvent) => {
   if (!start.value || locked.value) {
     return
   }
 
-  end.value = toContainerCoords(event.pageX, event.pageY)
+  end.value = toContainerCoords(event.clientX, event.clientY)
 }
 
-const onContainerMouseDown = (event: MouseEvent) => {
+const onPointerUp = (event: PointerEvent) => {
+  document.removeEventListener('pointermove', onPointerMove)
+  document.removeEventListener('pointerup', onPointerUp)
+  document.removeEventListener('pointercancel', onPointerUp)
+
+  if (!start.value) {
+    return
+  }
+
+  const startPoint = start.value
+  const endPoint = toContainerCoords(event.clientX, event.clientY)
+  const boundingRect = getBoundingRect(startPoint, endPoint)
+
+  if (!shouldRender(boundingRect)) {
+    reset()
+    return
+  }
+
+  end.value = endPoint
+  locked.value = true
+
+  emit('selection', startPoint, boundingRect, reset)
+  emit('dragend')
+}
+
+const onContainerPointerDown = (event: PointerEvent) => {
   if (!props.shouldStart?.(event)) {
     reset()
     return
   }
 
-  const startTarget = event.target
-
-  if (!(startTarget instanceof HTMLElement)) {
-    return
-  }
+  // 拦截指针事件，避免 Stage 的文本选择/工具手势与原生选区介入框选
+  event.stopPropagation()
+  event.preventDefault()
 
   emit('dragstart')
 
-  start.value = toContainerCoords(event.pageX, event.pageY)
+  start.value = toContainerCoords(event.clientX, event.clientY)
   end.value = null
   locked.value = false
 
-  const onMouseUp = (upEvent: MouseEvent) => {
-    document.body?.removeEventListener('mouseup', onMouseUp)
-
-    if (!start.value) {
-      return
-    }
-
-    const endPoint = toContainerCoords(upEvent.pageX, upEvent.pageY)
-    const boundingRect = getBoundingRect(start.value, endPoint)
-
-    if (
-      !(upEvent.target instanceof HTMLElement) ||
-      !container?.contains(upEvent.target) ||
-      !shouldRender(boundingRect)
-    ) {
-      reset()
-      return
-    }
-
-    end.value = endPoint
-    locked.value = true
-
-    if (start.value && end.value && upEvent.target instanceof HTMLElement) {
-      emit('selection', startTarget, boundingRect, reset)
-      emit('dragend')
-    }
-  }
-
-  document.body?.addEventListener('mouseup', onMouseUp)
-}
-
-const toContainerCoords = (pageX: number, pageY: number): Point => {
-  if (!containerBoundingRect) {
-    containerBoundingRect = container?.getBoundingClientRect() ?? null
-  }
-
-  if (!container || !containerBoundingRect) {
-    return { x: 0, y: 0 }
-  }
-
-  return {
-    x: pageX - containerBoundingRect.left + container.scrollLeft,
-    y: pageY - containerBoundingRect.top + container.scrollTop
-  }
+  document.addEventListener('pointermove', onPointerMove)
+  document.addEventListener('pointerup', onPointerUp)
+  document.addEventListener('pointercancel', onPointerUp)
 }
 
 const getBoundingRect = (startPoint: Point, endPoint: Point): ViewportRect => {
@@ -150,13 +146,14 @@ onMounted(() => {
     return
   }
 
-  container.addEventListener('mousemove', onContainerMouseMove)
-  container.addEventListener('mousedown', onContainerMouseDown)
+  container.addEventListener('pointerdown', onContainerPointerDown, true)
 })
 
 onBeforeUnmount(() => {
-  container?.removeEventListener('mousemove', onContainerMouseMove)
-  container?.removeEventListener('mousedown', onContainerMouseDown)
+  container?.removeEventListener('pointerdown', onContainerPointerDown, true)
+  document.removeEventListener('pointermove', onPointerMove)
+  document.removeEventListener('pointerup', onPointerUp)
+  document.removeEventListener('pointercancel', onPointerUp)
 })
 
 defineExpose({ reset })
@@ -164,6 +161,13 @@ defineExpose({ reset })
 
 <style scoped lang="scss">
 @use "../assets/vars" as *;
+.mouse-selection-container {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 4;
+}
+
 .mouse-selection {
   position: absolute;
   border: $highlight-selection-outer-border;

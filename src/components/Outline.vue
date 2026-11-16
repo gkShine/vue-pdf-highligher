@@ -19,13 +19,15 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
-import type { PDFDocumentProxy } from 'pdfjs-dist'
+import { computed, onMounted, ref, watch } from 'vue'
+import { pageRefsEqual, usePageList } from '@embedpdf/vue/runtime'
+import type { PageInfo } from '@embedpdf/vue/runtime'
+import { useOutline, useOutlineState } from '@embedpdf/vue/outline'
+import type { OutlineItem as EmbedOutlineItem } from '@embedpdf/vue/outline'
 import i18n from '../lib/i18n'
 import OutlineItem, { type OutlineNode } from './OutlineItem.vue'
 
-const props = defineProps<{
-  pdfDocument: PDFDocumentProxy
+defineProps<{
   currentPage?: number
 }>()
 
@@ -33,54 +35,48 @@ const emit = defineEmits<{
   'page-focus': [pageNumber: number]
 }>()
 
-const outline = ref<OutlineNode[]>([])
-const loading = ref(true)
+const outlineCapability = useOutline()
+const outlineState = useOutlineState()
+const pageList = usePageList()
+
 const error = ref<Error | null>(null)
 
-interface RawOutlineItem {
-  title?: string
-  dest?: string | unknown[] | null
-  items?: RawOutlineItem[]
+const loading = computed(
+  () => !error.value && (outlineState.status.value === 'idle' || outlineState.status.value === 'loading')
+)
+
+const resolvePageNumber = (item: EmbedOutlineItem, pages: readonly PageInfo[]): number | null => {
+  const target = item.target
+  if (!target || target.kind !== 'goto') return null
+
+  const pageIndex = pages.findIndex(page => pageRefsEqual(page.ref, target.destination.page))
+  return pageIndex >= 0 ? pageIndex + 1 : null
 }
 
-const resolveDestination = async (dest: RawOutlineItem['dest']): Promise<number | null> => {
-  if (!dest) return null
+const buildTree = (items: readonly EmbedOutlineItem[], pages: readonly PageInfo[]): OutlineNode[] => {
+  const roots: OutlineNode[] = []
+  const nodes = new Map<number, OutlineNode>()
 
-  let destArray: unknown = dest
-  if (typeof dest === 'string') {
-    try {
-      destArray = await props.pdfDocument.getDestination(dest)
-    } catch {
-      return null
+  // items 为深度优先顺序，父节点先于子节点出现
+  for (const item of items) {
+    const node: OutlineNode = {
+      title: item.title || '',
+      pageNumber: resolvePageNumber(item, pages),
+      items: []
+    }
+    nodes.set(item.ref.objectNumber, node)
+
+    if (item.parent) {
+      nodes.get(item.parent.objectNumber)?.items.push(node)
+    } else {
+      roots.push(node)
     }
   }
 
-  if (!Array.isArray(destArray) || !destArray[0]) return null
-
-  try {
-    const pageRef = destArray[0]
-    const pageIndex = await props.pdfDocument.getPageIndex(pageRef as never)
-    return pageIndex + 1
-  } catch {
-    return null
-  }
+  return roots
 }
 
-const resolveOutlineItems = async (items?: RawOutlineItem[]): Promise<OutlineNode[]> => {
-  if (!items || !Array.isArray(items)) return []
-
-  return Promise.all(
-    items.map(async item => {
-      const pageNumber = await resolveDestination(item.dest)
-      const childItems = item.items ? await resolveOutlineItems(item.items) : []
-      return {
-        title: item.title || '',
-        pageNumber,
-        items: childItems
-      }
-    })
-  )
-}
+const outline = computed(() => buildTree(outlineState.items.value, pageList.value))
 
 const onItemClick = (pageNumber: number | null) => {
   if (pageNumber != null) {
@@ -88,15 +84,19 @@ const onItemClick = (pageNumber: number | null) => {
   }
 }
 
-onMounted(async () => {
-  try {
-    const rawOutline = (await props.pdfDocument.getOutline()) as RawOutlineItem[] | null
-    outline.value = await resolveOutlineItems(rawOutline || [])
-  } catch (e) {
-    error.value = e as Error
-  } finally {
-    loading.value = false
+watch(
+  () => outlineState.status.value,
+  status => {
+    if (status === 'error') {
+      error.value = new Error('Failed to load outline')
+    }
   }
+)
+
+onMounted(() => {
+  outlineCapability.ensureLoaded().catch((e: unknown) => {
+    error.value = e instanceof Error ? e : new Error(String(e))
+  })
 })
 </script>
 

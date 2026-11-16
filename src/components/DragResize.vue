@@ -99,6 +99,8 @@ const startDrag = (event: PointerEvent) => {
   if (props.disabled || event.button !== 0) return
   if ((event.target as HTMLElement).closest('.drag-resize__handle')) return
 
+  // 避免 Stage 的文本选区手势把高亮拖拽误识别为划词
+  event.stopPropagation()
   event.preventDefault()
 
   const target = event.currentTarget as HTMLElement

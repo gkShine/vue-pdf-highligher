@@ -5,7 +5,7 @@ type __VLS_Props = {
     position: ViewportPosition;
     comment?: HighlightComment;
 };
-declare const _default: import("vue").DefineComponent<__VLS_Props, {}, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {
+declare const __VLS_export: import("vue").DefineComponent<__VLS_Props, {}, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {
     click: (event: MouseEvent) => any;
     mouseout: (event: MouseEvent) => any;
     mouseover: (event: MouseEvent) => any;
@@ -14,4 +14,5 @@ declare const _default: import("vue").DefineComponent<__VLS_Props, {}, {}, {}, {
     onMouseout?: ((event: MouseEvent) => any) | undefined;
     onMouseover?: ((event: MouseEvent) => any) | undefined;
 }>, {}, {}, {}, {}, string, import("vue").ComponentProvideOptions, false, {}, any>;
+declare const _default: typeof __VLS_export;
 export default _default;

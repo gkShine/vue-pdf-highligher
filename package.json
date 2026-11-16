@@ -28,18 +28,16 @@
     "vue": "^3.4.0"
   },
   "dependencies": {
-    "current-device": "^2.6.0",
-    "hammerjs": "^2.0.8",
-    "lodash": "^4.17.21",
-    "pdfjs-dist": "^6.5.438"
+    "@embedpdf/engine": "^3.2.0",
+    "@embedpdf/vue": "^3.2.0",
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
-    "@types/hammerjs": "^2.0.46",
     "@types/lodash": "^4.17.27",
     "@types/node": "^26.6.6",
     "@vitejs/plugin-vue": "^6.0.11",
     "sass": "^1.108.2",
-    "typescript": "~7.0.2",
+    "typescript": "~5.9.3",
     "vite": "^8.3.8",
     "vue": "^3.5.45",
     "vue-tsc": "^3.3.14"

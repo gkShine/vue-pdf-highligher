@@ -15,77 +15,75 @@
 
 <script setup lang="ts">
 import { computed, onBeforeUnmount, ref } from 'vue'
-import type { PDFPageProxy, RenderTask } from 'pdfjs-dist'
+import { useRender } from '@embedpdf/vue/render'
+import type { PageInfo } from '@embedpdf/vue/runtime'
 import vVisible from '../directives/visible'
 
 const props = defineProps<{
-  /** pdf.getPage 返回的 PDFPageProxy */
-  page: PDFPageProxy
+  /** EmbedPDF 页面布局信息（usePageList 返回项） */
+  page: PageInfo
   scale: number
   isPageFocused?: boolean
 }>()
 
 const emit = defineEmits<{
   'page-focus': [pageNumber: number]
-  'thumbnail-rendered': [payload: { page: PDFPageProxy; text: string }]
-  'thumbnail-errored': [payload: { response: unknown; page: PDFPageProxy; text: string }]
+  'thumbnail-rendered': [payload: { page: PageInfo; text: string }]
+  'thumbnail-errored': [payload: { response: unknown; page: PageInfo; text: string }]
 }>()
+
+const render = useRender()
 
 const src = ref<string | undefined>(undefined)
 
-let renderTask: RenderTask | null = null
+let rendering = false
+let disposed = false
+let revokeUrl: (() => void) | null = null
 
-const viewport = computed(() => props.page.getViewport({ scale: 0.4 }))
-
-const pageNumber = computed(() => props.page.pageNumber)
+const pageNumber = computed(() => props.page.index + 1)
 
 const focusPage = () => {
   emit('page-focus', pageNumber.value)
 }
 
-const destroyRenderTask = () => {
-  if (!renderTask) return
+const drawPage = async () => {
+  if (rendering || disposed) return
+  rendering = true
 
-  renderTask.cancel()
-  renderTask = null
-}
+  try {
+    const image = await render.renderPage(props.page.index, { scale: 0.4 })
+    const objectUrl = await image.objectUrl()
 
-const drawPage = () => {
-  if (renderTask) return
+    if (disposed) {
+      objectUrl.revoke()
+      return
+    }
 
-  const pageViewport = viewport.value
-  const canvas = document.createElement('canvas')
-  canvas.height = pageViewport.height
-  canvas.width = pageViewport.width
+    revokeUrl?.()
+    revokeUrl = objectUrl.revoke
+    src.value = objectUrl.url
 
-  renderTask = props.page.render({ canvas, viewport: pageViewport })
-
-  renderTask.promise
-    .then(() => {
-      src.value = canvas.toDataURL()
-
-      // 宽高置零可促使 Firefox 立即释放图形资源，显著降低内存占用
-      canvas.width = 0
-      canvas.height = 0
+    emit('thumbnail-rendered', {
+      page: props.page,
+      text: `Rendered thumbnail ${pageNumber.value}`
     })
-    .then(() => {
-      emit('thumbnail-rendered', {
-        page: props.page,
-        text: `Rendered thumbnail ${pageNumber.value}`
-      })
-    })
-    .catch((response: unknown) => {
-      destroyRenderTask()
+  } catch (response: unknown) {
+    if (!disposed) {
       emit('thumbnail-errored', {
         response,
         page: props.page,
         text: `Failed to render thumbnail ${pageNumber.value}`
       })
-    })
+    }
+  } finally {
+    rendering = false
+  }
 }
 
 onBeforeUnmount(() => {
-  destroyRenderTask()
+  disposed = true
+  revokeUrl?.()
+  revokeUrl = null
 })
 </script>
 

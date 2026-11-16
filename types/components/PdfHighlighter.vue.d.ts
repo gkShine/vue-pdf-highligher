@@ -1,5 +1,5 @@
-import { PDFViewer } from '../lib/pdfjs';
-import type { Highlight, HighlightComment, HighlightContent, ScaledRect, ScaledPosition } from '../types';
+import type { PdfViewerHandle } from '../lib/viewer-handle';
+import type { Highlight, HighlightComment, HighlightContent, ScaledPosition, ScaledRect } from '../types';
 type __VLS_Props = {
     url?: string;
     password?: string;
@@ -13,30 +13,31 @@ type __VLS_Props = {
     /** 只读模式: 只初始化 pdf 预览，不提供批注交互 */
     readOnly?: boolean;
     /**
-     * 渲染方式。pdf.js v6 已移除 SVG 渲染器，仅支持 canvas，
+     * 渲染方式。EmbedPDF 统一使用 PDFium 光栅渲染，
      * 保留该属性仅为向后兼容。
      */
     renderer?: 'canvas' | 'svg';
     lang?: Record<string, string>;
+    /** EmbedPDF (PDFium) 内置 CJK 支持，保留该属性仅为向后兼容 */
     cMapUrl?: string;
     scrollMargin?: number;
     withCredentials?: boolean;
 };
-declare const _default: import("vue").DefineComponent<__VLS_Props, {
+declare const __VLS_export: import("vue").DefineComponent<__VLS_Props, {
     handleCommand: (command: string, factor?: number) => void;
     scrollTo: (highlight: Highlight) => void;
 }, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {
+    error: (error: unknown, retry: (password?: string) => void) => any;
     change: (payload: {
-        viewer: PDFViewer;
+        viewer: PdfViewerHandle;
         page: {
             current: number;
             total: number;
         };
     }) => any;
-    error: (error: unknown, retry: (password?: string) => void) => any;
     scroll: () => any;
     loaded: (payload: {
-        viewer: PDFViewer;
+        viewer: PdfViewerHandle;
         page: {
             current: number;
             total: number;
@@ -55,17 +56,17 @@ declare const _default: import("vue").DefineComponent<__VLS_Props, {
     "remove-highlight": (highlight: Highlight) => any;
     "select-highlight": (highlight: Highlight) => any;
 }, string, import("vue").PublicProps, Readonly<__VLS_Props> & Readonly<{
+    onError?: ((error: unknown, retry: (password?: string) => void) => any) | undefined;
     onChange?: ((payload: {
-        viewer: PDFViewer;
+        viewer: PdfViewerHandle;
         page: {
             current: number;
             total: number;
         };
     }) => any) | undefined;
-    onError?: ((error: unknown, retry: (password?: string) => void) => any) | undefined;
     onScroll?: (() => any) | undefined;
     onLoaded?: ((payload: {
-        viewer: PDFViewer;
+        viewer: PdfViewerHandle;
         page: {
             current: number;
             total: number;
@@ -91,4 +92,5 @@ declare const _default: import("vue").DefineComponent<__VLS_Props, {
     renderer: "canvas" | "svg";
     withCredentials: boolean;
 }, {}, {}, {}, string, import("vue").ComponentProvideOptions, false, {}, any>;
+declare const _default: typeof __VLS_export;
 export default _default;

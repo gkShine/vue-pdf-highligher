@@ -8,7 +8,7 @@ type __VLS_Props = {
     depth?: number;
     currentPage?: number;
 };
-declare const _default: import("vue").DefineComponent<__VLS_Props, {}, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {
+declare const __VLS_export: import("vue").DefineComponent<__VLS_Props, {}, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {
     "page-focus": (pageNumber: number) => any;
 }, string, import("vue").PublicProps, Readonly<__VLS_Props> & Readonly<{
     "onPage-focus"?: ((pageNumber: number) => any) | undefined;
@@ -16,4 +16,5 @@ declare const _default: import("vue").DefineComponent<__VLS_Props, {}, {}, {}, {
     currentPage: number;
     depth: number;
 }, {}, {}, {}, string, import("vue").ComponentProvideOptions, false, {}, any>;
+declare const _default: typeof __VLS_export;
 export default _default;

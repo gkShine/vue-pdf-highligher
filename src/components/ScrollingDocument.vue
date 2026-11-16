@@ -2,7 +2,7 @@
   <div ref="rootRef" class="scrolling-document" v-scroll.immediate="updateScrollBounds">
     <ScrollingPage
       v-for="page in pages"
-      :key="page.pageNumber"
+      :key="page.ref.objectNumber"
       :page="page"
       :client-height="clientHeight"
       :scroll-top="scrollTop"
@@ -20,14 +20,14 @@
 
 <script setup lang="ts">
 import { computed, nextTick, onMounted, ref, watch } from 'vue'
-import type { PDFPageProxy } from 'pdfjs-dist'
+import type { PageInfo } from '@embedpdf/vue/runtime'
 import vScroll from '../directives/scroll'
 import vVisible from '../directives/visible'
 import ScrollingPage from './ScrollingPage.vue'
 
 const props = withDefaults(
   defineProps<{
-    pages: PDFPageProxy[]
+    pages: readonly PageInfo[]
     enablePageJump?: boolean
     currentPage?: number
     isParentVisible?: boolean

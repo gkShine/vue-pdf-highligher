@@ -39,7 +39,6 @@
         <div v-show="activeView === 'outline'" class="pdf-preview__outline-view">
           <Outline
             v-if="activeView === 'outline'"
-            :pdf-document="pdfDocument"
             :current-page="currentPage"
             @page-focus="onPageFocused"
           />
@@ -72,9 +71,9 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref, shallowRef, watch } from 'vue'
-import range from 'lodash/range'
-import type { PDFDocumentProxy, PDFPageProxy } from 'pdfjs-dist'
+import { computed, ref, watch } from 'vue'
+import { usePageList } from '@embedpdf/vue/runtime'
+import type { PageInfo } from '@embedpdf/vue/runtime'
 import i18n from '../lib/i18n'
 import ScrollingDocument from './ScrollingDocument.vue'
 import Thumbnail from './Thumbnail.vue'
@@ -82,7 +81,6 @@ import Outline from './Outline.vue'
 
 const props = withDefaults(
   defineProps<{
-    pdfDocument: PDFDocumentProxy
     scale?: number
     currentPage?: number
     pageCount?: number
@@ -99,18 +97,17 @@ const props = withDefaults(
 const emit = defineEmits<{
   'page-focus': [pageNumber: number]
   'pages-fetch': [currentPage?: number]
-  'thumbnail-rendered': [payload: { page: PDFPageProxy; text: string }]
-  'thumbnail-errored': [payload: { response: unknown; page: PDFPageProxy; text: string }]
+  'thumbnail-rendered': [payload: { page: PageInfo; text: string }]
+  'thumbnail-errored': [payload: { response: unknown; page: PageInfo; text: string }]
 }>()
 
-// PDF 代理对象不应被深度响应式包裹（会丢失私有成员类型且有性能开销）
-const pages = shallowRef<PDFPageProxy[]>([])
+const pageList = usePageList()
+const pages = computed(() => pageList.value)
+
 const activeView = ref<'thumbnails' | 'outline'>('thumbnails')
 const jumpPageInput = ref<number | string>(props.currentPage || 1)
 
-const resolvedPageCount = computed(
-  () => props.pageCount || props.pdfDocument?.numPages || 0
-)
+const resolvedPageCount = computed(() => props.pageCount || pageList.value.length)
 
 watch(
   () => props.currentPage,
@@ -131,11 +128,11 @@ const onPageFocused = (pageNumber: number) => {
   emit('page-focus', pageNumber)
 }
 
-const onThumbnailRendered = (payload: { page: PDFPageProxy; text: string }) => {
+const onThumbnailRendered = (payload: { page: PageInfo; text: string }) => {
   emit('thumbnail-rendered', payload)
 }
 
-const onThumbnailErrored = (payload: { response: unknown; page: PDFPageProxy; text: string }) => {
+const onThumbnailErrored = (payload: { response: unknown; page: PageInfo; text: string }) => {
   emit('thumbnail-errored', payload)
 }
 
@@ -160,15 +157,6 @@ const goNextPage = () => {
     emit('page-focus', props.currentPage + 1)
   }
 }
-
-onMounted(() => {
-  jumpPageInput.value = props.currentPage
-  Promise.all(
-    range(1, resolvedPageCount.value + 1).map(number => props.pdfDocument.getPage(number))
-  ).then(resolvedPages => {
-    pages.value = resolvedPages
-  })
-})
 </script>
 
 <style scoped lang="scss">
