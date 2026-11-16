@@ -20628,7 +20628,7 @@ var lv = {
 			onClick: i[2] ||= (e) => n("click", e)
 		}, null, 38))), 128))])], 2));
 	}
-}), [["__scopeId", "data-v-f9c4e888"]]), Ev = { class: "content" }, Dv = {
+}), [["__scopeId", "data-v-d25540ac"]]), Ev = { class: "content" }, Dv = {
 	key: 0,
 	class: "ops"
 }, Ov = /*#__PURE__*/ xv(/* @__PURE__ */ w({

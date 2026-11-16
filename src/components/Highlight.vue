@@ -68,27 +68,28 @@ const formatStyle = (style: Partial<ViewportRect>) => {
       border-bottom: 2px solid $highlight-color;
       transition: background 0.3s;
 
+      // 文字已光栅化进 canvas（位于高亮层之下），填充必须半透明才能透出文字
       &.is-ghost {
-        background: $highlight-selection-color;
+        background: rgba($highlight-selection-color, 0.5);
         border-bottom: 0;
       }
     }
   }
 
   &.highlight--scrolled-to .highlight__part {
-    background: $highlight-active-color;
+    background: rgba($highlight-active-color, 0.5);
     border-bottom-color: $highlight-active-color;
   }
 
   &:hover {
     .highlight__parts {
       .highlight__part {
-        background: $highlight-color;
+        background: rgba($highlight-color, 0.5);
       }
     }
 
     &.highlight--scrolled-to .highlight__part {
-      background: $highlight-active-color;
+      background: rgba($highlight-active-color, 0.5);
     }
   }
 }
