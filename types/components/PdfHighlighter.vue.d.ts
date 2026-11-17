@@ -18,8 +18,6 @@ type __VLS_Props = {
      */
     renderer?: 'canvas' | 'svg';
     lang?: Record<string, string>;
-    /** EmbedPDF (PDFium) 内置 CJK 支持，保留该属性仅为向后兼容 */
-    cMapUrl?: string;
     scrollMargin?: number;
     withCredentials?: boolean;
 };

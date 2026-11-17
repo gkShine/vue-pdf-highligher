@@ -3,7 +3,6 @@
     <PdfHighlighter
       ref="pdfRef"
       url="/demo3.pdf"
-      c-map-url="/cmaps/"
       renderer="canvas"
       :highlights="highlights"
       :enable-area-selection="event => event.altKey"

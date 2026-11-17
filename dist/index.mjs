@@ -21794,7 +21794,6 @@ var lv = {
 		},
 		renderer: { default: "canvas" },
 		lang: {},
-		cMapUrl: {},
 		scrollMargin: {},
 		withCredentials: {
 			type: Boolean,
@@ -21917,5 +21916,5 @@ var lv = {
 			style: j({ opacity: s.value })
 		}, [x("div", Ny, F(I(mv).t("hint-message")), 1)], 4)], 34));
 	}
-}), [["__scopeId", "data-v-6b377541"]]), Fy = Py;
+}), [["__scopeId", "data-v-79324c1d"]]), Fy = Py;
 export { $v as OutlineItem, Py as PdfHighlighter, Fy as default };

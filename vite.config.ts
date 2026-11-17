@@ -9,7 +9,7 @@ export default defineConfig(({ command }) => ({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
   },
-  // demo 所需的 pdf/cmaps 静态资源目录
+  // demo 所需的 pdf 静态资源目录
   publicDir: 'example',
   worker: {
     format: 'es'
